@@ -13,6 +13,7 @@ public class MusicService {
     }
 
     public void addMusic(Music music) {
+        music.setId(musicTable.getNewId() + 1);
         musicTable.add(music);
     }
 

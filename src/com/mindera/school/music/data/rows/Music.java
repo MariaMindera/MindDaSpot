@@ -2,14 +2,11 @@ package com.mindera.school.music.data.rows;
 
 import com.mindera.school.music.data.Row;
 
-import java.sql.Time;
-import java.time.Year;
-
 public class Music implements Row {
     private int id;
     private String name;
-    private Time duration;
-    private Year year;
+    private int duration;
+    private int year;
     private boolean explicit;
     private String spotifyURL;
     private String youtubeURL;
@@ -38,19 +35,19 @@ public class Music implements Row {
         this.name = name;
     }
 
-    public Time getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public Year getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(Year year) {
+    public void setYear(int year) {
         this.year = year;
     }
 

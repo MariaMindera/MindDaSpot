@@ -1,4 +1,4 @@
-package com.mindera.school.music;
+package com.mindera.school.music.actions;
 
 import com.mindera.school.music.ui.Action;
 
@@ -8,6 +8,5 @@ public class NoAction implements Action {
 
     @Override
     public void execute() {
-
     }
 }

@@ -35,4 +35,11 @@ public class Table<TRow extends Row> {
     public List<TRow> findAll() {
         return this.backend;
     }
+
+    public int getNewId() {
+        if(backend.isEmpty()) {
+            return 1;
+        }
+        return backend.get(backend.size() - 1).getId() + 1;
+    }
 }
