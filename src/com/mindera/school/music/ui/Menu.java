@@ -29,13 +29,13 @@ public class Menu {
                 System.out.println(printOption(i));
             }
 
-            index = sc.nextInt();
+            index = sc.nextInt() - 1;
 
             options.get(index).batatas();
         } while (options.get(index) != exitOption);
     }
 
     private String printOption(int index) {
-        return index + " - " + options.get(index).getText();
+        return (index + 1) + " - " + options.get(index).getText();
     }
 }
