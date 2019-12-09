@@ -1,9 +1,11 @@
 package com.mindera.school.music.data;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table<TRow extends Row> {
+public class Table<TRow extends Row> extends Component {
     private final List<TRow> backend;
 
     public Table() {
@@ -15,21 +17,30 @@ public class Table<TRow extends Row> {
     }
 
     public void remove(int id) {
-        for(int i = 0; i < this.backend.size(); i++) {
-            if(this.backend.get(i).getId() == id) {
+        for (int i = 0; i < this.backend.size(); i++) {
+            if (this.backend.get(i).getId() == id) {
                 this.backend.remove(i);
                 break;
             }
         }
     }
 
-    public TRow find(int id) {
-        for (TRow row: this.backend) {
-            if(row.getId() == id) {
+    public TRow findById(int id) {
+        for (TRow row : this.backend) {
+            if (row.getId() == id) {
                 return row;
             }
         }
         return null;
+    }
+
+    public int findIdByName(String name) {
+        for (TRow tRow : this.backend) {
+            if (tRow.getName().toUpperCase().equals(name.toUpperCase())) {
+                return tRow.getId();
+            }
+        }
+        return 0;
     }
 
     public List<TRow> findAll() {
@@ -37,7 +48,7 @@ public class Table<TRow extends Row> {
     }
 
     public int getNewId() {
-        if(backend.isEmpty()) {
+        if (backend.isEmpty()) {
             return 1;
         }
         return backend.get(backend.size() - 1).getId() + 1;
