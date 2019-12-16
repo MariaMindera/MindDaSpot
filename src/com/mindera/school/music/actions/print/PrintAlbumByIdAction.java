@@ -3,10 +3,13 @@ package com.mindera.school.music.actions.print;
 import com.mindera.school.music.services.AlbumService;
 import com.mindera.school.music.ui.Action;
 
+import static com.mindera.school.music.services.Services.*;
+
 public class PrintAlbumByIdAction implements Action {
     AlbumService albumService;
-    public PrintAlbumByIdAction(AlbumService albumService) {
-        this.albumService = albumService;
+
+    public PrintAlbumByIdAction() {
+        this.albumService = ALBUM_SERVICE;
     }
 
     @Override

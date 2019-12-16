@@ -5,13 +5,21 @@ import com.mindera.school.music.data.rows.Album;
 import com.mindera.school.music.data.tables.AlbumTable;
 import com.mindera.school.music.ui.KeyValue;
 
+import java.time.Year;
 import java.util.List;
+
+import static com.mindera.school.music.data.tables.Tables.*;
+import static com.mindera.school.music.services.Services.*;
 
 public class AlbumService {
     AlbumTable albumTable;
+    StudioService studioService;
+    Mapper mapper;
 
-    public AlbumService(AlbumTable albumTable) {
-        this.albumTable = albumTable;
+    public AlbumService() {
+        this.albumTable = ALBUM_TABLE;
+        this.studioService = STUDIO_SERVICE;
+        this.mapper = new Mapper();
     }
 
     public void add(List<KeyValue> keyValueList) {
@@ -21,59 +29,62 @@ public class AlbumService {
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
+                if (albumTable.verifyIfExistsName(keyValue.getValue().toString())) {
+                    System.out.println("This Studio already exits.");
+                    return;
+                }
                 album.setName(keyValue.getValue().toString());
             }
-            if (keyValue.getName().equals("Name")) {
-                album.setName(keyValue.getValue().toString());
+            if (keyValue.getName().equals("Year")) {
+                album.setYear((Year) keyValue.getValue());
             }
-            if (keyValue.getName().equals("Name")) {
-                album.setName(keyValue.getValue().toString());
-            }
-            if (keyValue.getName().equals("Name")) {
-                album.setName(keyValue.getValue().toString());
-            }
-            if (keyValue.getName().equals("Name")) {
-                album.setName(keyValue.getValue().toString());
+            if (keyValue.getName().equals("Studio")) {
+                album.setStudioId(mapper.getStudioIdByName(keyValue.getValue().toString()));
             }
         }
 
         albumTable.add(album);
     }
 
-    public void removeGenre(int id) {
-        genreTable.remove(id);
+    public void removeAlbum(int id) {
+        albumTable.remove(id);
     }
 
-    public Genre findGenre(int id) {
-        return genreTable.findById(id);
+    public Album findAlbum(int id) {
+        return albumTable.findById(id);
     }
 
-    public List<Genre> findAllGenres() {
-        return genreTable.findAll();
+    public List<Album> findAllAlbums() {
+        return albumTable.findAll();
     }
 
-    public void printAllStudios() {
-        List<Genre> genreList = findAllGenres();
+    public void printAllAlbums() {
+        List<Album> albumList = findAllAlbums();
 
-        if(genreList.isEmpty()) {
-            System.out.println("There is no genre.");
+        if (albumList.isEmpty()) {
+            System.out.println("There is no album.");
             return;
         }
 
-        for (Genre genre : genreList) {
-            System.out.println("Genre id: " + genre.getId());
-            System.out.println("Name: " + genre.getName() + '\n');
+        for (Album album : albumList) {
+            System.out.println("Album id: " + album.getId());
+            System.out.println("Name: " + album.getName());
+            System.out.println("Number of Likes: " + album.getNrLikes() + '\n');
         }
     }
 
-    public void printGenre(int id) {
-        Genre genre = findGenre(id);
-        if(genre == null) {
-            System.out.println("There is no genre with this id.");
+    public void printAlbum(int id) {
+        Album album = findAlbum(id);
+        if (album == null) {
+            System.out.println("There is no album with this id.");
             return;
         }
 
-        System.out.println("Genre id: " + genre.getId());
-        System.out.println("Name: " + genre.getName() + '\n');
+        System.out.println("Genre id: " + album.getId());
+        System.out.println("Name: " + album.getName());
+        System.out.println("Year: " + album.getYear());
+        System.out.println("Studio: " + studioService.findStudio(album.getStudioId()).getName());
+        System.out.println("Number of Likes: " + album.getNrLikes());
+        System.out.println("Number of Searches: " + album.getNrSearch() + '\n');
     }
 }

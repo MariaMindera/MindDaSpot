@@ -7,6 +7,7 @@ import com.mindera.school.music.actions.print.PrintMusicByIdAction;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Menu;
 import com.mindera.school.music.ui.Option;
+
 import static com.mindera.school.music.services.Services.*;
 
 public class ListMusicsAction implements Action {

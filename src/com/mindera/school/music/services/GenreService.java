@@ -5,15 +5,17 @@ import com.mindera.school.music.data.rows.Genre;
 import com.mindera.school.music.data.tables.GenreTable;
 import com.mindera.school.music.ui.KeyValue;
 
+import static com.mindera.school.music.data.tables.Tables.*;
+
 import java.util.List;
 
 public class GenreService {
     GenreTable genreTable;
     Mapper mapper;
 
-    public GenreService(GenreTable genreTable) {
-        this.genreTable = genreTable;
-        this.mapper = new Mapper(genreTable);
+    public GenreService() {
+        this.genreTable = GENRE_TABLE;
+        this.mapper = new Mapper();
     }
 
     public void add(List<KeyValue> keyValueList) {
@@ -23,10 +25,11 @@ public class GenreService {
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
-                String name = genreTable.verifyExistsName(keyValue.getValue().toString());
-                if(name.equals("")) {
-                    return new ;
+                if(genreTable.verifyIfExistsName(keyValue.getValue().toString())) {
+                    System.out.println("This genre already exits.");
+                    return;
                 }
+                genre.setName(keyValue.getValue().toString());
             }
         }
 

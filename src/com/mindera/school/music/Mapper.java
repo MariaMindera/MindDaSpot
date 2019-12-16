@@ -1,28 +1,23 @@
 package com.mindera.school.music;
 
+import com.mindera.school.music.actions.add.AddStudioAction;
 import com.mindera.school.music.data.rows.Country;
 import com.mindera.school.music.data.rows.Genre;
-import com.mindera.school.music.data.rows.User;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.GenreTable;
+import com.mindera.school.music.data.tables.StudioTable;
+
+import static com.mindera.school.music.data.tables.Tables.*;
 
 public class Mapper {
     private CountryTable countryTable;
     private GenreTable genreTable;
-    private User user;
+    private StudioTable studioTable;
 
-    public Mapper(CountryTable countryTable, GenreTable genreTable, User user) {
-        this.countryTable = countryTable;
-        this.genreTable = genreTable;
-        this.user = user;
-    }
-
-    public Mapper(CountryTable countryTable) {
-        this.countryTable = countryTable;
-    }
-
-    public Mapper(GenreTable genreTable) {
-        this.genreTable = genreTable;
+    public Mapper() {
+        this.countryTable = COUNTRY_TABLE;
+        this.genreTable = GENRE_TABLE;
+        this.studioTable = STUDIO_TABLE;
     }
 
     public int getCountryIdByName(String name) {
@@ -41,5 +36,13 @@ public class Mapper {
             genreTable.add(new Genre(id, name));
         }
         return id;
+    }
+
+    public int getStudioIdByName(String name) {
+        int id = studioTable.findIdByName(name);
+        if (id == 0) {
+            new AddStudioAction();
+        }
+        return studioTable.findIdByName(name);
     }
 }

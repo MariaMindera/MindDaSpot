@@ -6,6 +6,8 @@ import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.StudioTable;
 import com.mindera.school.music.ui.KeyValue;
 
+import static com.mindera.school.music.data.tables.Tables.*;
+
 import java.util.List;
 
 public class StudioService {
@@ -13,10 +15,10 @@ public class StudioService {
     CountryTable countryTable;
     Mapper mapper;
 
-    public StudioService(StudioTable studioTable, CountryTable countryTable) {
-        this.studioTable = studioTable;
-        this.countryTable = countryTable;
-        this.mapper = new Mapper(countryTable);
+    public StudioService() {
+        this.studioTable = STUDIO_TABLE;
+        this.countryTable = COUNTRY_TABLE;
+        this.mapper = new Mapper();
     }
 
     public void add(List<KeyValue> keyValueList) {
@@ -26,6 +28,10 @@ public class StudioService {
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
+                if (studioTable.verifyIfExistsName(keyValue.getValue().toString())) {
+                    System.out.println("This Studio already exits.");
+                    return;
+                }
                 studio.setName(keyValue.getValue().toString());
             }
             if (keyValue.getName().equals("City")) {

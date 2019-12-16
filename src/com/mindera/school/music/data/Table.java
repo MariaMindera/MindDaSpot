@@ -52,12 +52,16 @@ public class Table<TRow extends Row> extends Component {
         return id;
     }
 
-    public String verifyExistsName(String name) {
+    public boolean verifyIfExistsName(String name) {
         for (TRow tRow : this.backend) {
             if (tRow.getName().toUpperCase().equals(name.toUpperCase())) {
-                return "";
+                return true;
             }
         }
-        return name;
+        return false;
+    }
+
+    public List<TRow> getBackend() {
+        return backend;
     }
 }
