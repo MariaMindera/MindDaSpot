@@ -4,6 +4,8 @@ import com.mindera.school.music.services.MusicService;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Request;
 
+import static com.mindera.school.music.services.Services.*;
+
 /*
  *
  * Read Music from user and add in Music Service
@@ -14,8 +16,8 @@ public class AddMusicAction implements Action {
     private MusicService musicService;
     private Request request;
 
-    public AddMusicAction(MusicService musicService) {
-        this.musicService = musicService;
+    public AddMusicAction() {
+        this.musicService = MUSIC_SERVICE;
         this.request = new Request();
     }
 
