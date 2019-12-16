@@ -7,9 +7,12 @@ import com.mindera.school.music.data.tables.GenreTable;
 import com.mindera.school.music.data.tables.MusicTable;
 import com.mindera.school.music.ui.KeyValue;
 import com.mindera.school.music.ui.Request;
-import static com.mindera.school.music.data.tables.Tables.*;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import static com.mindera.school.music.data.tables.Tables.COUNTRY_TABLE;
+import static com.mindera.school.music.data.tables.Tables.GENRE_TABLE;
 
 public class MusicService {
     private MusicTable musicTable;
@@ -22,7 +25,7 @@ public class MusicService {
         this.musicTable = musicTable;
         this.countryTable = countryTable;
         this.genreTable = genreTable;
-        this.mapper = new Mapper(COUNTRY_TABLE, GENRE_TABLE);
+        this.mapper = new Mapper(COUNTRY_TABLE, GENRE_TABLE, );
         this.request = new Request();
     }
 
@@ -33,8 +36,7 @@ public class MusicService {
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
-                String name = keyValue.getValue().toString();
-                music.setName(name.substring(0, 1).toUpperCase() + name.substring(1));
+                music.setName(keyValue.getValue().toString());
             }
             if (keyValue.getName().equals("Genre")) {
                 music.setGenreId(
@@ -86,8 +88,23 @@ public class MusicService {
         return musicTable.findAll();
     }
 
-    public void printAllMusics() {
-        List<Music> musicList = findAllMusics();
+    public List<Music> findNoExplicitMusics() {
+        List<Music> musicList = new LinkedList<>();
+        List<Music> backend = musicTable.findAll();
+
+        for (Music music : backend) {
+            if (!music.isExplicit()) {
+                musicList.add(music);
+            }
+        }
+        return musicList;
+    }
+
+    public void printAllMusics(int age) {
+        List<Music> musicList;
+        if(age > 17) {
+
+        }
 
         if(musicList.isEmpty()) {
             System.out.println("There is no songs.");
@@ -100,7 +117,7 @@ public class MusicService {
         }
     }
 
-    public void printMusic(int id) {
+    public void printMusic(int id, int age) {
         Music music = findMusic(id);
         if(music == null) {
             System.out.println("There is no song with this id.");

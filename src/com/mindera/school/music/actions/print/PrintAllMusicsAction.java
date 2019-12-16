@@ -1,4 +1,4 @@
-package com.mindera.school.music.actions;
+package com.mindera.school.music.actions.print;
 
 import com.mindera.school.music.services.MusicService;
 import com.mindera.school.music.ui.Action;

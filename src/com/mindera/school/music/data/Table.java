@@ -1,12 +1,12 @@
 package com.mindera.school.music.data;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Table<TRow extends Row> extends Component {
     private final List<TRow> backend;
+    private int id = 1;
 
     public Table() {
         this.backend = new ArrayList<>();
@@ -14,6 +14,7 @@ public class Table<TRow extends Row> extends Component {
 
     public void add(TRow row) {
         this.backend.add(row);
+        id++;
     }
 
     public void remove(int id) {
@@ -48,9 +49,15 @@ public class Table<TRow extends Row> extends Component {
     }
 
     public int getNewId() {
-        if (backend.isEmpty()) {
-            return 1;
+        return id;
+    }
+
+    public String verifyExistsName(String name) {
+        for (TRow tRow : this.backend) {
+            if (tRow.getName().toUpperCase().equals(name.toUpperCase())) {
+                return "";
+            }
         }
-        return backend.get(backend.size() - 1).getId() + 1;
+        return name;
     }
 }
