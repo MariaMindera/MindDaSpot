@@ -30,7 +30,7 @@ public class User implements Row {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.substring(0,1).toUpperCase() + name.substring(1);
     }
 
     public Date getBirthdate() {

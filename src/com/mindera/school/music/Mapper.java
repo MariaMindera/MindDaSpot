@@ -2,20 +2,30 @@ package com.mindera.school.music;
 
 import com.mindera.school.music.data.rows.Country;
 import com.mindera.school.music.data.rows.Genre;
+import com.mindera.school.music.data.rows.User;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.GenreTable;
 
 public class Mapper {
     private CountryTable countryTable;
     private GenreTable genreTable;
+    private User user;
 
-    public Mapper(CountryTable countryTable, GenreTable genreTable) {
+    public Mapper(CountryTable countryTable, GenreTable genreTable, User user) {
         this.countryTable = countryTable;
+        this.genreTable = genreTable;
+        this.user = user;
+    }
+
+    public Mapper(CountryTable countryTable) {
+        this.countryTable = countryTable;
+    }
+
+    public Mapper(GenreTable genreTable) {
         this.genreTable = genreTable;
     }
 
     public int getCountryIdByName(String name) {
-        name = name.substring(0,1).toUpperCase() + name.substring(1);
         int id = countryTable.findIdByName(name);
         if (id == 0) {
             id = countryTable.getNewId();
@@ -25,7 +35,6 @@ public class Mapper {
     }
 
     public int getGenreIdByName(String name) {
-        name = name.substring(0,1).toUpperCase() + name.substring(1);
         int id = genreTable.findIdByName(name);
         if (id == 0) {
             id = genreTable.getNewId();
