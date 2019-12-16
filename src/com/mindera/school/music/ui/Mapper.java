@@ -1,4 +1,4 @@
-package com.mindera.school.music;
+package com.mindera.school.music.ui;
 
 import com.mindera.school.music.actions.add.AddStudioAction;
 import com.mindera.school.music.data.rows.Country;

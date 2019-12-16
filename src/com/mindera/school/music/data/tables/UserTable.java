@@ -7,8 +7,7 @@ import java.util.List;
 
 public class UserTable extends Table<User> {
     public boolean verifyIfAlreadyExistsEmail(String email) {
-        List<User> userList = getBackend();
-        for (User user : userList) {
+        for (User user : backend) {
             if (email.equals(user.getEmail())) {
                 return true;
             }
