@@ -1,6 +1,6 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.Mapper;
+import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Artist;
 import com.mindera.school.music.data.tables.ArtistTable;
 import com.mindera.school.music.data.tables.CountryTable;

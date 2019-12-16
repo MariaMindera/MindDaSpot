@@ -1,6 +1,7 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.Mapper;
+import com.mindera.school.music.data.rows.Music;
+import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Album;
 import com.mindera.school.music.data.tables.AlbumTable;
 import com.mindera.school.music.ui.KeyValue;
@@ -85,6 +86,12 @@ public class AlbumService {
         System.out.println("Year: " + album.getYear());
         System.out.println("Studio: " + studioService.findStudio(album.getStudioId()).getName());
         System.out.println("Number of Likes: " + album.getNrLikes());
-        System.out.println("Number of Searches: " + album.getNrSearch() + '\n');
+        System.out.println("Number of Searches: " + album.getNrSearch());
+        System.out.println("Musics: ");
+
+        List<Music> musicList = album.getMusicList();
+        for (Music music : musicList) {
+            System.out.print("Id: " + music.getId() + " Name: " + music.getName() + '\n');
+        }
     }
 }

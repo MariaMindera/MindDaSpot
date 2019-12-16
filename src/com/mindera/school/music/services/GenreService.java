@@ -1,6 +1,6 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.Mapper;
+import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Genre;
 import com.mindera.school.music.data.tables.GenreTable;
 import com.mindera.school.music.ui.KeyValue;

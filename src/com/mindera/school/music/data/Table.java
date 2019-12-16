@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table<TRow extends Row> extends Component {
-    private final List<TRow> backend;
+    protected final List<TRow> backend;
     private int id = 1;
 
     public Table() {
@@ -59,9 +59,5 @@ public class Table<TRow extends Row> extends Component {
             }
         }
         return false;
-    }
-
-    public List<TRow> getBackend() {
-        return backend;
     }
 }
