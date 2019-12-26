@@ -1,11 +1,16 @@
 package com.mindera.school.music;
 
-import com.mindera.school.music.data.rows.User;
-
 public class UserOnline {
-    public User user;
+    private int userID = 0;
 
-    public UserOnline(User user) {
-        this.user = user;
+    public UserOnline() {
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 }

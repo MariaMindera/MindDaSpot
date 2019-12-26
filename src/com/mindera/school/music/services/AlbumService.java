@@ -31,7 +31,7 @@ public class AlbumService {
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
                 if (albumTable.verifyIfExistsName(keyValue.getValue().toString())) {
-                    System.out.println("This Studio already exits.");
+                    System.out.println("This Album already exits.");
                     return;
                 }
                 album.setName(keyValue.getValue().toString());

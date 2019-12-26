@@ -5,21 +5,25 @@ import com.mindera.school.music.data.rows.User;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.UserTable;
 import com.mindera.school.music.ui.KeyValue;
+import com.mindera.school.music.ui.Request;
 
 import static com.mindera.school.music.data.tables.Tables.*;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 public class UserService {
-    UserTable userTable;
-    CountryTable countryTable;
-    Mapper mapper;
+    private UserTable userTable;
+    private CountryTable countryTable;
+    private Mapper mapper;
+    private Request request;
 
     public UserService() {
         this.userTable = USER_TABLE;
         this.countryTable = COUNTRY_TABLE;
         this.mapper = new Mapper();
+        this.request = new Request();
     }
 
     public void add(List<KeyValue> keyValueList) {
@@ -95,5 +99,39 @@ public class UserService {
         System.out.println("Country: " + countryTable.findById(user.getCountryId()).getName());
         System.out.println("Email: " + user.getEmail());
         System.out.println("Password: " + user.getPassword() + '\n');
+    }
+
+    public void userOnline(List<KeyValue> list) throws SQLException {
+        String email = "";
+        String password = "";
+
+        for (KeyValue keyValue : list) {
+            if (keyValue.getName().equals("Email")) {
+                email = (String) keyValue.getValue();
+            }
+            if (keyValue.getName().equals("Password")) {
+                password = (String) keyValue.getValue();
+            }
+        }
+
+        boolean login = userTable.userOnline(email, password);
+
+        while(!login) {
+            System.out.println("Invalid email or password.");
+            request.hasString("Email", "Email:");
+            request.hasString("Password", "Password:");
+            list = request.ask();
+
+            for (KeyValue keyValue : list) {
+                if (keyValue.getName().equals("Email")) {
+                    email = (String) keyValue.getValue();
+                }
+                if (keyValue.getName().equals("Password")) {
+                    password = (String) keyValue.getValue();
+                }
+            }
+
+            login = userTable.userOnline(email, password);
+        }
     }
 }

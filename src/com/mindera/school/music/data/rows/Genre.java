@@ -28,6 +28,6 @@ public class Genre implements Row {
     }
 
     public void setName(String name) {
-        this.name = name.substring(0,1).toUpperCase() + name.substring(1);
+        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 }

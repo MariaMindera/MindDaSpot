@@ -20,10 +20,10 @@ public class RequestPropertyYesNo implements RequestProperty {
         System.out.print(question);
         char value = SCANNER.next().charAt(0);
         while (true) {
-            if(value == 'Y' || value == 'y') {
+            if (value == 'Y' || value == 'y') {
                 return new KeyValue(name, value);
             }
-            if(value == 'N' || value == 'n') {
+            if (value == 'N' || value == 'n') {
                 return new KeyValue(name, value);
             }
             System.out.print("Invalid letter. Insert again: ");

@@ -1,5 +1,6 @@
 package com.mindera.school.music.ui;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -22,7 +23,7 @@ public class Menu {
         }
     }
 
-    public void render() {
+    public void render() throws SQLException {
         int index;
         do {
             for (int i = 0; i < options.size(); i++) {
@@ -31,7 +32,7 @@ public class Menu {
 
             index = sc.nextInt() - 1;
 
-            options.get(index).batatas();
+            options.get(index).execute();
         } while (options.get(index) != exitOption);
     }
 

@@ -11,7 +11,7 @@ public class RequestPropertyString implements RequestProperty {
     private String question;
 
     public RequestPropertyString(String name, String question) {
-        this.name = name.substring(0,1).toUpperCase() + name.substring(1);
+        this.name = name.substring(0, 1).toUpperCase() + name.substring(1);
         this.question = question;
     }
 
@@ -19,7 +19,7 @@ public class RequestPropertyString implements RequestProperty {
     public KeyValue ask() {
         System.out.print(question);
         String value = SCANNER.nextLine().trim();
-        value = value.substring(0,1).toUpperCase() + value.substring(1);
+        value = value.substring(0, 1).toUpperCase() + value.substring(1);
         return new KeyValue(name, value);
     }
 }

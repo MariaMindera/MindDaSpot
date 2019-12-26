@@ -1,63 +1,44 @@
 package com.mindera.school.music.data;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.mindera.school.music.services.SQLConnection;
 
-public class Table<TRow extends Row> extends Component {
-    protected final List<TRow> backend;
-    private int id = 1;
+import static com.mindera.school.music.services.Services.SQL_CONNECTION;
 
-    public Table() {
-        this.backend = new ArrayList<>();
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Table<TRow extends Row> {
+    protected String table;
+    protected SQLConnection sql;
+
+    public Table(String table) {
+        this.table = table;
+        this.sql = SQL_CONNECTION;
     }
 
-    public void add(TRow row) {
-        this.backend.add(row);
-        id++;
+    public void removeById(int id) throws SQLException {
+        CallableStatement statement = sql.con.prepareCall("CALL delete_" + table + "(" + id + ");");
+        statement.execute();
+        statement.close();
     }
 
-    public void remove(int id) {
-        for (int i = 0; i < this.backend.size(); i++) {
-            if (this.backend.get(i).getId() == id) {
-                this.backend.remove(i);
-                break;
-            }
+    public void removeByName(String name) throws SQLException {
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
+        ResultSet resultSet = sql.con.prepareCall("CALL get_" + table + "_id_by_name('" + name + "');").executeQuery();
+        if (resultSet.next()) {
+            sql.con.prepareCall("CALL delete_" + table + "(" + resultSet.getInt(1) + ");").execute();
         }
     }
 
-    public TRow findById(int id) {
-        for (TRow row : this.backend) {
-            if (row.getId() == id) {
-                return row;
-            }
-        }
-        return null;
-    }
+    public int findIdByName(String name) throws SQLException {
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
 
-    public int findIdByName(String name) {
-        for (TRow tRow : this.backend) {
-            if (tRow.getName().toUpperCase().equals(name.toUpperCase())) {
-                return tRow.getId();
-            }
+        ResultSet resultSet = sql.con.prepareCall("CALL get_" + table + "_id_by_name('" + name + "');").executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(table + "_id");
         }
         return 0;
-    }
-
-    public List<TRow> findAll() {
-        return this.backend;
-    }
-
-    public int getNewId() {
-        return id;
-    }
-
-    public boolean verifyIfExistsName(String name) {
-        for (TRow tRow : this.backend) {
-            if (tRow.getName().toUpperCase().equals(name.toUpperCase())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

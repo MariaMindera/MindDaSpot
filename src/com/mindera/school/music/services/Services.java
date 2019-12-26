@@ -1,6 +1,10 @@
 package com.mindera.school.music.services;
 
+import com.mindera.school.music.UserOnline;
+
 public class Services {
+    public static final UserOnline USER_ONLINE = new UserOnline();
+    public static final SQLConnection SQL_CONNECTION = new SQLConnection();
     public static final AlbumService ALBUM_SERVICE = new AlbumService();
     public static final ArtistService ARTIST_SERVICE = new ArtistService();
     public static final CountryService COUNTRY_SERVICE = new CountryService();
