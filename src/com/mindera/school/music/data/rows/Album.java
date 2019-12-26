@@ -3,8 +3,6 @@ package com.mindera.school.music.data.rows;
 import com.mindera.school.music.data.Row;
 
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Album implements Row {
     private int id;
@@ -13,15 +11,6 @@ public class Album implements Row {
     private int nrSearch = 0;
     private int studioId;
     private int nrLikes = 0;
-    private List<Music> musicList;
-
-    public Album() {
-        musicList = new ArrayList<>();
-    }
-
-    public void addMusicToAlbum(Music music) {
-        this.musicList.add(music);
-    }
 
     @Override
     public int getId() {
@@ -37,7 +26,7 @@ public class Album implements Row {
     }
 
     public void setName(String name) {
-        this.name = name.substring(0, 1).toUpperCase() + name.substring(1);
+        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
     public Year getYear() {
@@ -70,9 +59,5 @@ public class Album implements Row {
 
     public void setNrLikes() {
         this.nrLikes++;
-    }
-
-    public List<Music> getMusicList() {
-        return musicList;
     }
 }

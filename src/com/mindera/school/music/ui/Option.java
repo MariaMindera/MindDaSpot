@@ -1,5 +1,7 @@
 package com.mindera.school.music.ui;
 
+import java.sql.SQLException;
+
 public class Option {
     private String text;
     private Action action;
@@ -13,7 +15,7 @@ public class Option {
         return text;
     }
 
-    void batatas() {
+    void execute() throws SQLException {
         action.execute();
     }
 }
