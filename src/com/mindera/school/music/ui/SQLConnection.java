@@ -1,4 +1,4 @@
-package com.mindera.school.music.services;
+package com.mindera.school.music.ui;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,8 +1,8 @@
 package com.mindera.school.music;
 
-import com.mindera.school.music.actions.AdministratorAction;
-import com.mindera.school.music.actions.ExitOption;
-import com.mindera.school.music.actions.UserAction;
+import com.mindera.school.music.actions.others.AdministratorAction;
+import com.mindera.school.music.actions.others.ExitOption;
+import com.mindera.school.music.actions.others.UserAction;
 import com.mindera.school.music.ui.Menu;
 import com.mindera.school.music.ui.Option;
 

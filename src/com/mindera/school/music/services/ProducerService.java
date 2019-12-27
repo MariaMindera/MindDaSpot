@@ -1,10 +1,10 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.data.rows.Genre;
 import com.mindera.school.music.data.rows.Producer;
 import com.mindera.school.music.data.tables.ProducerTable;
 import com.mindera.school.music.ui.KeyValue;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static com.mindera.school.music.data.tables.Tables.*;
@@ -16,10 +16,8 @@ public class ProducerService {
         this.producerTable = PRODUCER_TABLE;
     }
 
-    public void add(List<KeyValue> keyValueList) {
+    public void add(List<KeyValue> keyValueList) throws SQLException {
         Producer producer = new Producer();
-
-        producer.setId(producerTable.getNewId());
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
@@ -34,23 +32,27 @@ public class ProducerService {
         producerTable.add(producer);
     }
 
-    public void removeProducer(int id) {
-        producerTable.remove(id);
+    public void removeById(int id) throws SQLException {
+        producerTable.removeById(id);
     }
 
-    public Producer findProducer(int id) {
+    public void removeByName(String name) throws SQLException {
+        producerTable.removeByName(name);
+    }
+
+    public Producer find(int id) throws SQLException {
         return producerTable.findById(id);
     }
 
-    public List<Producer> findAllProducers() {
+    public List<Producer> findAll() throws SQLException {
         return producerTable.findAll();
     }
 
-    public void printAllProducers() {
-        List<Producer> producerList = findAllProducers();
+    public void printAll() throws SQLException {
+        List<Producer> producerList = findAll();
 
         if(producerList.isEmpty()) {
-            System.out.println("There is no producer.");
+            System.out.println("There is no producers.");
             return;
         }
 
@@ -60,8 +62,9 @@ public class ProducerService {
         }
     }
 
-    public void printProducer(int id) {
-        Producer producer = findProducer(id);
+    public void print(int id) throws SQLException {
+        Producer producer = find(id);
+
         if(producer == null) {
             System.out.println("There is no producer with this id.");
             return;

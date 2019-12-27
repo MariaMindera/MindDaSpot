@@ -8,6 +8,7 @@ import com.mindera.school.music.ui.KeyValue;
 
 import static com.mindera.school.music.data.tables.Tables.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ArtistService {
@@ -21,15 +22,13 @@ public class ArtistService {
         this.mapper = new Mapper();
     }
 
-    public void add(List<KeyValue> keyValueList) {
+    public void add(List<KeyValue> keyValueList) throws SQLException {
         Artist artist = new Artist();
-
-        artist.setId(artistTable.getNewId());
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
                 if (artistTable.verifyIfExistsName(keyValue.getValue().toString())) {
-                    System.out.println("This Artist already exits.");
+                    System.out.println("This artist already exits.");
                     return;
                 }
                 artist.setName(keyValue.getValue().toString());
@@ -48,23 +47,27 @@ public class ArtistService {
         artistTable.add(artist);
     }
 
-    public void removeArtist(int id) {
-        artistTable.remove(id);
+    public void removeById(int id) throws SQLException {
+        artistTable.removeById(id);
     }
 
-    public Artist findArtist(int id) {
+    public void removeByName(String name) throws SQLException {
+        artistTable.removeByName(name);
+    }
+
+    public Artist find(int id) throws SQLException {
         return artistTable.findById(id);
     }
 
-    public List<Artist> findAllArtists() {
+    public List<Artist> findAll() throws SQLException {
         return artistTable.findAll();
     }
 
-    public void printAllArtists() {
-        List<Artist> artistList = findAllArtists();
+    public void printAll() throws SQLException {
+        List<Artist> artistList = findAll();
 
         if (artistList.isEmpty()) {
-            System.out.println("There is no artist.");
+            System.out.println("There is no artists.");
             return;
         }
 
@@ -75,8 +78,9 @@ public class ArtistService {
         }
     }
 
-    public void printArtist(int id) {
-        Artist artist = findArtist(id);
+    public void print(int id) throws SQLException {
+        Artist artist = find(id);
+
         if (artist == null) {
             System.out.println("There is no artist with this id.");
             return;

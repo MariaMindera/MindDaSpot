@@ -1,6 +1,6 @@
 package com.mindera.school.music.data;
 
-import com.mindera.school.music.services.SQLConnection;
+import com.mindera.school.music.ui.SQLConnection;
 
 import static com.mindera.school.music.services.Services.SQL_CONNECTION;
 
@@ -40,5 +40,13 @@ public class Table<TRow extends Row> {
             return resultSet.getInt(table + "_id");
         }
         return 0;
+    }
+
+    public boolean verifyIfExistsName(String name) throws SQLException {
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
+        ResultSet resultSet = sql.con.prepareCall("CALL get_" + table + "_id_by_name('" + name + "');").executeQuery();
+
+        return resultSet.next();
     }
 }

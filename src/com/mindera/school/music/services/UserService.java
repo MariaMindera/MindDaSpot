@@ -17,35 +17,43 @@ public class UserService {
     private UserTable userTable;
     private CountryTable countryTable;
     private Mapper mapper;
-    private Request request;
 
     public UserService() {
         this.userTable = USER_TABLE;
         this.countryTable = COUNTRY_TABLE;
         this.mapper = new Mapper();
-        this.request = new Request();
     }
 
-    public void add(List<KeyValue> keyValueList) {
+    public void add(List<KeyValue> keyValueList) throws SQLException {
         User user = new User();
-
-        user.setId(userTable.getNewId());
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
                 user.setName(keyValue.getValue().toString());
             }
             if (keyValue.getName().equals("Birthdate")) {
-                user.setBirthdate((Date) keyValue.getValue());
+                user.setBirthdate((String) keyValue.getValue());
             }
             if (keyValue.getName().equals("Gender")) {
-                user.setGender((Character) keyValue.getValue());
+                char gender = (char) keyValue.getValue();
+
+                while (true) {
+                    if (gender == 'M' || gender == 'F') {
+                        user.setGender(gender);
+                        break;
+                    }
+
+                    Request newRequest = new Request();
+                    newRequest.hasChar("Gender", "Invalid letter. What is your gender? [F/M]: ");
+                    List<KeyValue> newList = newRequest.ask();
+                    gender = (char) newList.get(0).getValue();
+                }
             }
             if (keyValue.getName().equals("Country")) {
                 user.setCountryId(mapper.getCountryIdByName(keyValue.getValue().toString()));
             }
             if (keyValue.getName().equals("Email")) {
-                if(userTable.verifyIfAlreadyExistsEmail(keyValue.getValue().toString())) {
+                if (userTable.verifyExistsEmail(keyValue.getValue().toString())) {
                     System.out.println("This user already exits.");
                     return;
                 }
@@ -59,22 +67,26 @@ public class UserService {
         userTable.add(user);
     }
 
-    public void removeUser(int id) {
-        userTable.remove(id);
+    public void removeById(int id) throws SQLException {
+        userTable.removeById(id);
     }
 
-    public User findUser(int id) {
+    public void removeByName(String name) throws SQLException {
+        userTable.removeByName(name);
+    }
+
+    public User find(int id) throws SQLException {
         return userTable.findById(id);
     }
 
-    public List<User> findAllUsers() {
+    public List<User> findAll() throws SQLException {
         return userTable.findAll();
     }
 
-    public void printAllUsers() {
-        List<User> userList = findAllUsers();
+    public void printAll() throws SQLException {
+        List<User> userList = findAll();
 
-        if(userList.isEmpty()) {
+        if (userList.isEmpty()) {
             System.out.println("There is no users.");
             return;
         }
@@ -85,9 +97,9 @@ public class UserService {
         }
     }
 
-    public void printUser(int id) {
-        User user = findUser(id);
-        if(user == null) {
+    public void print(int id) throws SQLException {
+        User user = find(id);
+        if (user == null) {
             System.out.println("There is no user with this id.");
             return;
         }
@@ -116,13 +128,16 @@ public class UserService {
 
         boolean login = userTable.userOnline(email, password);
 
-        while(!login) {
-            System.out.println("Invalid email or password.");
-            request.hasString("Email", "Email:");
-            request.hasString("Password", "Password:");
-            list = request.ask();
+        while (!login) {
+            Request newRequest = new Request();
 
-            for (KeyValue keyValue : list) {
+            System.out.println("Invalid email or password.");
+
+            newRequest.hasString("Email", "Email:");
+            newRequest.hasString("Password", "Password:");
+            List<KeyValue> newList = newRequest.ask();
+
+            for (KeyValue keyValue : newList) {
                 if (keyValue.getName().equals("Email")) {
                     email = (String) keyValue.getValue();
                 }

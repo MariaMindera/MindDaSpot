@@ -15,12 +15,20 @@ public class UserTable extends Table<User> {
         super(table);
     }
 
+    public boolean verifyExistsEmail(String email) throws SQLException {
+        ResultSet resultSet = sql.statement.executeQuery("Call verify_email_exists('" + email + "');");
+
+        return resultSet.next();
+    }
+
     public boolean userOnline(String email, String password) throws SQLException {
-        ResultSet resultSet = sql.con.prepareCall("Call get_user_id_by_email_password('" + email + "', '" + password + "');").executeQuery();
+        ResultSet resultSet = sql.statement.executeQuery("Call get_user_id_by_email_password('" + password + "', '" + email + "');");
+
         if (resultSet.next()) {
-            USER_ONLINE.setUserID(resultSet.getInt(1));
+            USER_ONLINE.setUserID(resultSet.getInt("user_id"));
             return true;
         }
+
         return false;
     }
 
@@ -35,7 +43,7 @@ public class UserTable extends Table<User> {
 
         if (resultSet.next()) {
             return new User(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getDate(3), resultSet.getString(4).charAt(0),
+                    resultSet.getString(3), resultSet.getString(4).charAt(0),
                     resultSet.getInt(5), resultSet.getString(6), resultSet.getString(7));
         }
 
@@ -45,11 +53,11 @@ public class UserTable extends Table<User> {
     public List<User> findAll() throws SQLException {
         List<User> list = new ArrayList<>();
 
-        ResultSet resultSet = sql.statement.executeQuery("Call get_all_users();");
+        ResultSet resultSet = sql.statement.executeQuery("Call get_all_user();");
 
         while (resultSet.next()) {
             list.add(new User(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getDate(3), resultSet.getString(4).charAt(0),
+                    resultSet.getString(3), resultSet.getString(4).charAt(0),
                     resultSet.getInt(5), resultSet.getString(6), resultSet.getString(7)));
         }
 

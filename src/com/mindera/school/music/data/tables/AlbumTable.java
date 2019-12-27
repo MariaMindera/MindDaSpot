@@ -32,7 +32,7 @@ public class AlbumTable extends Table<Album> {
     public List<Album> findAll() throws SQLException {
         List<Album> list = new ArrayList<>();
 
-        ResultSet resultSet = sql.statement.executeQuery("Call get_all_albums();");
+        ResultSet resultSet = sql.statement.executeQuery("Call get_all_album();");
 
         while (resultSet.next()) {
             list.add(new Album(resultSet.getInt(1), resultSet.getString(2),

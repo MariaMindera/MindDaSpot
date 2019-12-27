@@ -3,6 +3,8 @@ package com.mindera.school.music.data.tables;
 import com.mindera.school.music.data.Table;
 import com.mindera.school.music.data.rows.Playlist;
 
+import static com.mindera.school.music.services.Services.USER_ONLINE;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class PlaylistTable extends Table<Playlist> {
     }
 
     public void add(Playlist playlist) throws SQLException {
-        sql.statement.executeUpdate("Call add_playlist('" + playlist.getName() + "', " + playlist.getUserId() + ");");
+        sql.statement.executeUpdate("Call add_playlist('" + playlist.getName() + "', " + USER_ONLINE.getUserID() + ");");
     }
 
     public Playlist findById(int id) throws SQLException {
