@@ -13,6 +13,15 @@ public class Artist implements Row {
     public Artist() {
     }
 
+    public Artist(int id, String name, int countryId, String description, int nrSearch, int nrFollowers) {
+        this.id = id;
+        this.name = name;
+        this.countryId = countryId;
+        this.description = description;
+        this.nrSearch = nrSearch;
+        this.nrFollowers = nrFollowers;
+    }
+
     @Override
     public int getId() {
         return id;

@@ -2,15 +2,25 @@ package com.mindera.school.music.data.rows;
 
 import com.mindera.school.music.data.Row;
 
-import java.time.Year;
-
 public class Album implements Row {
     private int id;
     private String name;
-    private Year year;
+    private int year;
     private int nrSearch = 0;
     private int studioId;
     private int nrLikes = 0;
+
+    public Album(int id, String name, int year, int nrSearch, int studioId, int nrLikes) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.nrSearch = nrSearch;
+        this.studioId = studioId;
+        this.nrLikes = nrLikes;
+    }
+
+    public Album() {
+    }
 
     @Override
     public int getId() {
@@ -29,11 +39,11 @@ public class Album implements Row {
         this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-    public Year getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(Year year) {
+    public void setYear(int year) {
         this.year = year;
     }
 

@@ -11,6 +11,13 @@ public class Studio implements Row {
     public Studio() {
     }
 
+    public Studio(int id, String name, String city, int countryId) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.countryId = countryId;
+    }
+
     @Override
     public int getId() {
         return id;

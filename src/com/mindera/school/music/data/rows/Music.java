@@ -18,6 +18,20 @@ public class Music implements Row {
     public Music() {
     }
 
+    public Music(int id, String name, int duration, int year, boolean explicit, String spotifyURL, String youtubeURL, int nrSearch, int countryId, int genreId, int nrLikes) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+        this.year = year;
+        this.explicit = explicit;
+        this.spotifyURL = spotifyURL;
+        this.youtubeURL = youtubeURL;
+        this.nrSearch = nrSearch;
+        this.countryId = countryId;
+        this.genreId = genreId;
+        this.nrLikes = nrLikes;
+    }
+
     @Override
     public int getId() {
         return id;

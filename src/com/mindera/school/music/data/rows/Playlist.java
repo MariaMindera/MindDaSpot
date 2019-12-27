@@ -7,6 +7,15 @@ public class Playlist implements Row {
     private String name;
     private int userId;
 
+    public Playlist(int id, String name, int userId) {
+        this.id = id;
+        this.name = name;
+        this.userId = userId;
+    }
+
+    public Playlist() {
+    }
+
     @Override
     public int getId() {
         return id;

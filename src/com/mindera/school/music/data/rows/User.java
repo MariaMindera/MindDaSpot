@@ -16,6 +16,16 @@ public class User implements Row {
     public User() {
     }
 
+    public User(int id, String name, Date birthdate, char gender, int countryId, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.countryId = countryId;
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public int getId() {
         return id;

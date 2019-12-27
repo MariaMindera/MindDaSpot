@@ -9,6 +9,11 @@ public class Producer implements Row {
     public Producer() {
     }
 
+    public Producer(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public int getId() {
         return id;
