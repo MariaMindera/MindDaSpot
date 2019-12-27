@@ -8,6 +8,7 @@ import com.mindera.school.music.ui.KeyValue;
 
 import static com.mindera.school.music.data.tables.Tables.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class StudioService {
@@ -21,15 +22,13 @@ public class StudioService {
         this.mapper = new Mapper();
     }
 
-    public void add(List<KeyValue> keyValueList) {
+    public void add(List<KeyValue> keyValueList) throws SQLException {
         Studio studio = new Studio();
-
-        studio.setId(studioTable.getNewId());
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
                 if (studioTable.verifyIfExistsName(keyValue.getValue().toString())) {
-                    System.out.println("This Studio already exits.");
+                    System.out.println("This studio already exits.");
                     return;
                 }
                 studio.setName(keyValue.getValue().toString());
@@ -38,27 +37,31 @@ public class StudioService {
                 studio.setCity(keyValue.getValue().toString());
             }
             if (keyValue.getName().equals("Country")) {
-                mapper.getCountryIdByName(keyValue.getValue().toString());
+                studio.setCountryId(mapper.getCountryIdByName(keyValue.getValue().toString()));
             }
         }
 
         studioTable.add(studio);
     }
 
-    public void removeStudio(int id) {
-        studioTable.remove(id);
+    public void removeById(int id) throws SQLException {
+        studioTable.removeById(id);
     }
 
-    public Studio findStudio(int id) {
+    public void removeByName(String name) throws SQLException {
+        studioTable.removeByName(name);
+    }
+
+    public Studio find(int id) throws SQLException {
         return studioTable.findById(id);
     }
 
-    public List<Studio> findAllStudios() {
+    public List<Studio> findAll() throws SQLException {
         return studioTable.findAll();
     }
 
-    public void printAllStudios() {
-        List<Studio> studioList = findAllStudios();
+    public void printAllStudios() throws SQLException {
+        List<Studio> studioList = findAll();
 
         if(studioList.isEmpty()) {
             System.out.println("There is no studios.");
@@ -71,14 +74,15 @@ public class StudioService {
         }
     }
 
-    public void printStudio(int id) {
-        Studio studio = findStudio(id);
+    public void print(int id) throws SQLException {
+        Studio studio = find(id);
+
         if(studio == null) {
             System.out.println("There is no studio with this id.");
             return;
         }
 
-        System.out.println("Music id: " + studio.getId());
+        System.out.println("Studio id: " + studio.getId());
         System.out.println("Name: " + studio.getName());
         System.out.println("Country: " + countryTable.findById(studio.getCountryId()).getName());
         System.out.println("City: " + studio.getCity() + '\n');

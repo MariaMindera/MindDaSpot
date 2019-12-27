@@ -13,6 +13,10 @@ public class GenreTable extends Table<Genre> {
         super(table);
     }
 
+    public void add(Genre genre) throws SQLException {
+        sql.statement.executeUpdate("Call add_genre('" + genre.getName() + "');");
+    }
+
     public Genre findById(int id) throws SQLException {
         ResultSet resultSet = sql.statement.executeQuery("Call get_genre_by_id(" + id + ");");
 

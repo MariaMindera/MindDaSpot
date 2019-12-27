@@ -30,7 +30,7 @@ public class CountryTable extends Table<Country> {
     public List<Country> findAll() throws SQLException {
         List<Country> list = new ArrayList<>();
 
-        ResultSet resultSet = sql.statement.executeQuery("Call get_all_countrys();");
+        ResultSet resultSet = sql.statement.executeQuery("Call get_all_country();");
 
         while (resultSet.next()) {
             list.add(new Country(resultSet.getInt(1), resultSet.getString(2)));

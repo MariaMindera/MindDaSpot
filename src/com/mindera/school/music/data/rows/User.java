@@ -7,7 +7,7 @@ import java.util.Date;
 public class User implements Row {
     private int id;
     private String name;
-    private Date birthdate;
+    private String birthdate;
     private char gender;
     private int countryId;
     private String email;
@@ -16,7 +16,7 @@ public class User implements Row {
     public User() {
     }
 
-    public User(int id, String name, Date birthdate, char gender, int countryId, String email, String password) {
+    public User(int id, String name, String birthdate, char gender, int countryId, String email, String password) {
         this.id = id;
         this.name = name;
         this.birthdate = birthdate;
@@ -43,11 +43,11 @@ public class User implements Row {
         this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

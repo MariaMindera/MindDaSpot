@@ -1,6 +1,7 @@
 package com.mindera.school.music.services;
 
 import com.mindera.school.music.UserOnline;
+import com.mindera.school.music.ui.SQLConnection;
 
 public class Services {
     public static final UserOnline USER_ONLINE = new UserOnline();

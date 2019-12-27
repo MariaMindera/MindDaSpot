@@ -5,7 +5,7 @@ import com.mindera.school.music.data.Row;
 public class Music implements Row {
     private int id;
     private String name;
-    private int duration;
+    private String duration;
     private int year;
     private boolean explicit;
     private String spotifyURL;
@@ -18,7 +18,7 @@ public class Music implements Row {
     public Music() {
     }
 
-    public Music(int id, String name, int duration, int year, boolean explicit, String spotifyURL, String youtubeURL, int nrSearch, int countryId, int genreId, int nrLikes) {
+    public Music(int id, String name, String duration, int year, boolean explicit, String spotifyURL, String youtubeURL, int nrSearch, int countryId, int genreId, int nrLikes) {
         this.id = id;
         this.name = name;
         this.duration = duration;
@@ -49,11 +49,11 @@ public class Music implements Row {
         this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

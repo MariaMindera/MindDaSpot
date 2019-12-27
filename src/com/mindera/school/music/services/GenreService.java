@@ -7,6 +7,7 @@ import com.mindera.school.music.ui.KeyValue;
 
 import static com.mindera.school.music.data.tables.Tables.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class GenreService {
@@ -18,14 +19,12 @@ public class GenreService {
         this.mapper = new Mapper();
     }
 
-    public void add(List<KeyValue> keyValueList) {
+    public void add(List<KeyValue> keyValueList) throws SQLException {
         Genre genre = new Genre();
-
-        genre.setId(genreTable.getNewId());
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
-                if(genreTable.verifyIfExistsName(keyValue.getValue().toString())) {
+                if (genreTable.verifyIfExistsName(keyValue.getValue().toString())) {
                     System.out.println("This genre already exits.");
                     return;
                 }
@@ -36,23 +35,27 @@ public class GenreService {
         genreTable.add(genre);
     }
 
-    public void removeGenre(int id) {
-        genreTable.remove(id);
+    public void removeById(int id) throws SQLException {
+        genreTable.removeById(id);
     }
 
-    public Genre findGenre(int id) {
+    public void removeByName(String name) throws SQLException {
+        genreTable.removeByName(name);
+    }
+
+    public Genre find(int id) throws SQLException {
         return genreTable.findById(id);
     }
 
-    public List<Genre> findAllGenres() {
+    public List<Genre> findAll() throws SQLException {
         return genreTable.findAll();
     }
 
-    public void printAllStudios() {
-        List<Genre> genreList = findAllGenres();
+    public void printAll() throws SQLException {
+        List<Genre> genreList = findAll();
 
-        if(genreList.isEmpty()) {
-            System.out.println("There is no genre.");
+        if (genreList.isEmpty()) {
+            System.out.println("There is no genres.");
             return;
         }
 
@@ -62,9 +65,10 @@ public class GenreService {
         }
     }
 
-    public void printGenre(int id) {
-        Genre genre = findGenre(id);
-        if(genre == null) {
+    public void print(int id) throws SQLException {
+        Genre genre = find(id);
+
+        if (genre == null) {
             System.out.println("There is no genre with this id.");
             return;
         }

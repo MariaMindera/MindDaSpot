@@ -4,6 +4,7 @@ import com.mindera.school.music.data.rows.Country;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.ui.KeyValue;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static com.mindera.school.music.data.tables.Tables.*;
@@ -15,14 +16,12 @@ public class CountryService {
         this.countryTable = COUNTRY_TABLE;
     }
 
-    public void add(List<KeyValue> keyValueList) {
+    public void add(List<KeyValue> keyValueList) throws SQLException {
         Country country = new Country();
-
-        country.setId(countryTable.getNewId());
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
-                if(countryTable.verifyIfExistsName(keyValue.getValue().toString())) {
+                if (countryTable.verifyIfExistsName(keyValue.getValue().toString())) {
                     System.out.println("This country already exits.");
                     return;
                 }
@@ -33,23 +32,27 @@ public class CountryService {
         countryTable.add(country);
     }
 
-    public void removeCountry(int id) {
-        countryTable.remove(id);
+    public void removeById(int id) throws SQLException {
+        countryTable.removeById(id);
     }
 
-    public Country findCountry(int id) {
+    public void removeByName(String name) throws SQLException {
+        countryTable.removeByName(name);
+    }
+
+    public Country find(int id) throws SQLException {
         return countryTable.findById(id);
     }
 
-    public List<Country> findAllCountrys() {
+    public List<Country> findAll() throws SQLException {
         return countryTable.findAll();
     }
 
-    public void printAllCountrys() {
-        List<Country> countryList = findAllCountrys();
+    public void printAll() throws SQLException {
+        List<Country> countryList = findAll();
 
-        if(countryList.isEmpty()) {
-            System.out.println("There is no country.");
+        if (countryList.isEmpty()) {
+            System.out.println("There is no countrys.");
             return;
         }
 
@@ -59,9 +62,10 @@ public class CountryService {
         }
     }
 
-    public void printCountry(int id) {
-        Country country = findCountry(id);
-        if(country == null) {
+    public void print(int id) throws SQLException {
+        Country country = find(id);
+
+        if (country == null) {
             System.out.println("There is no country with this id.");
             return;
         }

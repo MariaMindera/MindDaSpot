@@ -6,7 +6,9 @@ import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.GenreTable;
 import com.mindera.school.music.data.tables.MusicTable;
 import com.mindera.school.music.ui.KeyValue;
+import com.mindera.school.music.ui.Request;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,10 +27,8 @@ public class MusicService {
         this.mapper = new Mapper();
     }
 
-    public void addMusic(List<KeyValue> keyValueList) {
+    public void add(List<KeyValue> keyValueList) throws SQLException {
         Music music = new Music();
-
-        music.setId(musicTable.getNewId());
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
@@ -48,7 +48,7 @@ public class MusicService {
                 music.setYear((Integer) keyValue.getValue());
             }
             if (keyValue.getName().equals("Duration")) {
-                music.setDuration((Integer) keyValue.getValue());
+                music.setDuration((String) keyValue.getValue());
             }
             if (keyValue.getName().equals("Country")) {
                 music.setCountryId(
@@ -58,11 +58,21 @@ public class MusicService {
             }
             if (keyValue.getName().equals("Explicit")) {
                 char explicit = (char) keyValue.getValue();
-                if (explicit == 'Y' || explicit == 'y') {
-                    music.setExplicit(true);
-                }
-                if (explicit == 'N' || explicit == 'n') {
-                    music.setExplicit(false);
+
+                while (true) {
+                    if (explicit == 'Y' || explicit == 'y') {
+                        music.setExplicit(true);
+                        break;
+                    }
+                    if (explicit == 'N' || explicit == 'n') {
+                        music.setExplicit(false);
+                        break;
+                    }
+
+                    Request request = new Request();
+                    request.hasChar("Explicit", "Invalid letter. Is the music explicit? [Y/N]: ");
+                    List<KeyValue> newList = request.ask();
+                    explicit = (char) newList.get(0).getValue();
                 }
             }
             if (keyValue.getName().equals("SpotifyURL")) {
@@ -76,49 +86,44 @@ public class MusicService {
         musicTable.add(music);
     }
 
-    public void removeMusic(int id) {
-        musicTable.remove(id);
+    public void removeById(int id) throws SQLException {
+        musicTable.removeById(id);
     }
 
-    public Music findMusic(int id) {
+    public void removeByName(String name) throws SQLException {
+        musicTable.removeByName(name);
+    }
+
+    public Music findById(int id) throws SQLException {
         return musicTable.findById(id);
     }
 
-    public List<Music> findAllMusics() {
+    public int findByName(String name) throws SQLException {
+        return musicTable.findIdByName(name);
+    }
+
+    public List<Music> findAll() throws SQLException {
         return musicTable.findAll();
     }
 
-    public List<Music> findNoExplicitMusics() {
-        List<Music> musicList = new LinkedList<>();
-        List<Music> backend = musicTable.findAll();
-
-        for (Music music : backend) {
-            if (!music.isExplicit()) {
-                musicList.add(music);
-            }
-        }
-        return musicList;
-    }
-
-    public void printAllMusics(int age) {
-        List<Music> musicList;
-        if (age > 17) {
-
-        }
+    public void printAll() throws SQLException {
+        List<Music> musicList = findAll();
 
         if (musicList.isEmpty()) {
-            System.out.println("There is no songs.");
+            System.out.println("There is no musics.");
             return;
         }
 
         for (Music music : musicList) {
             System.out.println("Music id: " + music.getId());
-            System.out.println("Name: " + music.getName() + '\n');
+            System.out.println("Name: " + music.getName());
+            System.out.println("Number of Likes: " + music.getNrLikes() + '\n');
         }
     }
 
-    public void printMusic(int id, int age) {
-        Music music = findMusic(id);
+    public void print(int id) throws SQLException {
+        Music music = findById(id);
+
         if (music == null) {
             System.out.println("There is no song with this id.");
             return;
@@ -132,6 +137,8 @@ public class MusicService {
         System.out.println("Country: " + countryTable.findById(music.getCountryId()).getName());
         System.out.println("Explicit: " + music.isExplicit());
         System.out.println("Spotify url: " + music.getSpotifyURL());
-        System.out.println("Youtube url: " + music.getYoutubeURL() + '\n');
+        System.out.println("Youtube url: " + music.getYoutubeURL());
+        System.out.println("Number of likes: " + music.getNrLikes());
+        System.out.println("Number of Searches: " + music.getNrSearch() + '\n');
     }
 }

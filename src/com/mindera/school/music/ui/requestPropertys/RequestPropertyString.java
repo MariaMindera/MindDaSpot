@@ -19,7 +19,6 @@ public class RequestPropertyString implements RequestProperty {
     public KeyValue ask() {
         System.out.print(question);
         String value = SCANNER.nextLine().trim();
-        value = value.substring(0, 1).toUpperCase() + value.substring(1);
         return new KeyValue(name, value);
     }
 }
