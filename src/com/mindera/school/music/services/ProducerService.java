@@ -66,7 +66,7 @@ public class ProducerService {
         Producer producer = find(id);
 
         if(producer == null) {
-            System.out.println("There is no producer with this id.");
+            System.out.println("There is no producer.");
             return;
         }
 

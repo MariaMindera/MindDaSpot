@@ -22,8 +22,8 @@ public class StudioTable extends Table<Studio> {
         ResultSet resultSet = sql.statement.executeQuery("Call get_studio_by_id(" + id + ");");
 
         if (resultSet.next()) {
-            return new Studio(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getString(3), resultSet.getInt(4));
+            return new Studio(resultSet.getInt("studio_id"), resultSet.getString("name"),
+                    resultSet.getString("city"), resultSet.getInt("country_id"));
         }
 
         return null;

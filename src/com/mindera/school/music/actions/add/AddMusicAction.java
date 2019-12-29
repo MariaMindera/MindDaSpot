@@ -17,6 +17,7 @@ public class AddMusicAction implements Action {
 
     @Override
     public void execute() throws SQLException {
+        System.out.println();
         Request request = new Request();
         request.hasString("Name", "Insert the name of the song: ");
         request.hasString("Genre", "Insert the genre of the song: ");
@@ -27,5 +28,6 @@ public class AddMusicAction implements Action {
         request.hasString("SpotifyURL", "Insert the spotify url of the song: ");
         request.hasString("YoutubeURL", "Insert the youtube url of the song: ");
         musicService.add(request.ask());
+        System.out.println();
     }
 }

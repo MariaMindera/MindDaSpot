@@ -66,7 +66,7 @@ public class CountryService {
         Country country = find(id);
 
         if (country == null) {
-            System.out.println("There is no country with this id.");
+            System.out.println("There is no country.");
             return;
         }
 

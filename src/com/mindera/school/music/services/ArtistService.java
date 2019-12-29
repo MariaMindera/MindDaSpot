@@ -82,7 +82,7 @@ public class ArtistService {
         Artist artist = find(id);
 
         if (artist == null) {
-            System.out.println("There is no artist with this id.");
+            System.out.println("There is no artist.");
             return;
         }
 

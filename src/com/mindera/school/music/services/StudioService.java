@@ -78,7 +78,7 @@ public class StudioService {
         Studio studio = find(id);
 
         if(studio == null) {
-            System.out.println("There is no studio with this id.");
+            System.out.println("There is no studio.");
             return;
         }
 

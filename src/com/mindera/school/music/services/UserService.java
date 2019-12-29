@@ -100,7 +100,7 @@ public class UserService {
     public void print(int id) throws SQLException {
         User user = find(id);
         if (user == null) {
-            System.out.println("There is no user with this id.");
+            System.out.println("There is no user.");
             return;
         }
 

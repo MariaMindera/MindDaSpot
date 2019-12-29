@@ -1,10 +1,15 @@
 package com.mindera.school.music.data.intermediateRows;
 
-public class Favourite_Artist {
+public class FavouriteArtist {
     private int artist_id;
     private int user_id;
 
-    public Favourite_Artist() {
+    public FavouriteArtist() {
+    }
+
+    public FavouriteArtist(int artist_id, int user_id) {
+        this.artist_id = artist_id;
+        this.user_id = user_id;
     }
 
     public int getArtist_id() {

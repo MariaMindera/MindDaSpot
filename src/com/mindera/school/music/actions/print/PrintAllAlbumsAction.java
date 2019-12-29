@@ -16,6 +16,7 @@ public class PrintAllAlbumsAction implements Action {
 
     @Override
     public void execute() throws SQLException {
+        System.out.println();
         albumService.printAll();
     }
 }

@@ -17,10 +17,12 @@ public class AddAlbumAction implements Action {
 
     @Override
     public void execute() throws SQLException {
+        System.out.println();
         Request request = new Request();
         request.hasString("Name", "Insert the name of the album: ");
         request.hasInt("Year", "Insert the year of the album: ");
         request.hasString("Studio", "Insert the name of the studio: ");
         albumService.add(request.ask());
+        System.out.println();
     }
 }

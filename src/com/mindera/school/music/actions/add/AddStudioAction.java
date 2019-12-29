@@ -17,10 +17,12 @@ public class AddStudioAction implements Action {
 
     @Override
     public void execute() throws SQLException {
+        System.out.println();
         Request request = new Request();
         request.hasString("Name", "Insert the name of the studio: ");
         request.hasString("City", "Insert the name of the city: ");
         request.hasString("Country", "Insert the name of the country: ");
         studioService.add(request.ask());
+        System.out.println();
     }
 }

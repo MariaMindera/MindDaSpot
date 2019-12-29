@@ -12,16 +12,16 @@ import static com.mindera.school.music.services.Services.*;
 public class LoginAction implements Action {
     private UserService userService;
     private SQLConnection sql;
-    private Request request;
 
     public LoginAction() {
         this.userService = USER_SERVICE;
         this.sql = SQL_CONNECTION;
-        this.request = new Request();
     }
 
     @Override
     public void execute() throws SQLException {
+        Request request = new Request();
+        System.out.println();
         request.hasString("Email", "Email:");
         request.hasString("Password", "Password:");
         userService.userOnline(request.ask());
