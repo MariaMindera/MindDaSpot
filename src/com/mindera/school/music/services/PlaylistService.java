@@ -45,12 +45,28 @@ public class PlaylistService {
         return playlistTable.findById(id);
     }
 
+    public int findIdByName(String name) throws SQLException {
+        return playlistTable.findIdByName(name);
+    }
+
+    public Playlist findUser(int id) throws SQLException {
+        return playlistTable.findByIdUser(id);
+    }
+
+    public int findIdByNameUser(String name) throws SQLException {
+        return playlistTable.findIdByNameUser(name);
+    }
+
     public List<Playlist> findAll() throws SQLException {
         return playlistTable.findAll();
     }
 
-    public void printAll() throws SQLException {
-        List<Playlist> playlistList = findAll();
+    public List<Playlist> findAllUser() throws SQLException {
+        return playlistTable.findAllUser();
+    }
+
+    public void printAllUser() throws SQLException {
+        List<Playlist> playlistList = findAllUser();
 
         if (playlistList.isEmpty()) {
             System.out.println("There is no playlist.");
@@ -63,11 +79,44 @@ public class PlaylistService {
         }
     }
 
+    public void printAll() throws SQLException {
+        List<Playlist> playlistList = findAll();
+
+        if (playlistList.isEmpty()) {
+            System.out.println("There is no playlist.");
+            return;
+        }
+
+        for (Playlist playlist : playlistList) {
+            System.out.println("Playlist id: " + playlist.getId());
+            System.out.println("Name: " + playlist.getName());
+            System.out.println("User id: " + playlist.getUserId() + '\n');
+        }
+    }
+
+    public void printUser(int id) throws SQLException {
+        Playlist playlist = findUser(id);
+
+        if (playlist == null) {
+            System.out.println("There is no playlist.");
+            return;
+        }
+
+        System.out.println("Playlist id: " + playlist.getId());
+        System.out.println("Name: " + playlist.getName());
+//        System.out.println("Musics: ");
+//
+//        List<Music> musicList = playlist.getMusicList();
+//        for (Music music : musicList) {
+//            System.out.print("Id: " + music.getId() + " Name: " + music.getName() + '\n');
+//        }
+    }
+
     public void print(int id) throws SQLException {
         Playlist playlist = find(id);
 
         if (playlist == null) {
-            System.out.println("There is no playlist with this id.");
+            System.out.println("There is no playlist.");
             return;
         }
 

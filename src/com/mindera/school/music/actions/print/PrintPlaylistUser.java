@@ -1,18 +1,21 @@
-package com.mindera.school.music.actions.others;
+package com.mindera.school.music.actions.print;
 
+import com.mindera.school.music.actions.others.ExitOption;
+import com.mindera.school.music.actions.others.NoAction;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Menu;
 import com.mindera.school.music.ui.Option;
 
 import java.sql.SQLException;
 
-public class UserAction implements Action {
+public class PrintPlaylistUser implements Action {
     private Menu menu;
-    public UserAction() {
+
+    public PrintPlaylistUser() {
         this.menu = new Menu();
         menu.add(new Option("Back", new NoAction()), true);
-        menu.add(new Option("Login", new LoginAction()));
-        menu.add(new Option("Register", new RegisterAction()));
+        menu.add(new Option("Print a playlist", new PrintPlaylistUserAction()));
+        menu.add(new Option("Print all playlists", new PrintAllPlaylistUser()));
         menu.add(new Option("Exit", new ExitOption()));
     }
 

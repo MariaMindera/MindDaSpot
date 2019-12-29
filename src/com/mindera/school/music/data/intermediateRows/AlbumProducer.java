@@ -1,10 +1,15 @@
 package com.mindera.school.music.data.intermediateRows;
 
-public class Album_Producer {
+public class AlbumProducer {
     private int album_id;
     private int producer_id;
 
-    public Album_Producer() {
+    public AlbumProducer() {
+    }
+
+    public AlbumProducer(int album_id, int producer_id) {
+        this.album_id = album_id;
+        this.producer_id = producer_id;
     }
 
     public int getAlbum_id() {

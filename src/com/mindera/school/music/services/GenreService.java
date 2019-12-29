@@ -69,7 +69,7 @@ public class GenreService {
         Genre genre = find(id);
 
         if (genre == null) {
-            System.out.println("There is no genre with this id.");
+            System.out.println("There is no genre.");
             return;
         }
 

@@ -125,7 +125,7 @@ public class MusicService {
         Music music = findById(id);
 
         if (music == null) {
-            System.out.println("There is no song with this id.");
+            System.out.println("There is no song.");
             return;
         }
 

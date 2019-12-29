@@ -4,7 +4,6 @@ import com.mindera.school.music.ui.SQLConnection;
 
 import static com.mindera.school.music.services.Services.SQL_CONNECTION;
 
-import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,9 +17,7 @@ public class Table<TRow extends Row> {
     }
 
     public void removeById(int id) throws SQLException {
-        CallableStatement statement = sql.con.prepareCall("CALL delete_" + table + "(" + id + ");");
-        statement.execute();
-        statement.close();
+        sql.statement.executeUpdate("CALL delete_" + table + "(" + id + ");");
     }
 
     public void removeByName(String name) throws SQLException {

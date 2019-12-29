@@ -1,5 +1,7 @@
 package com.mindera.school.music.services;
 
+import com.mindera.school.music.data.rows.Studio;
+import com.mindera.school.music.data.tables.StudioTable;
 import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Album;
 import com.mindera.school.music.data.tables.AlbumTable;
@@ -10,16 +12,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static com.mindera.school.music.data.tables.Tables.*;
-import static com.mindera.school.music.services.Services.*;
 
 public class AlbumService {
     AlbumTable albumTable;
-    StudioService studioService;
+    StudioTable studioTable;
     Mapper mapper;
 
     public AlbumService() {
         this.albumTable = ALBUM_TABLE;
-        this.studioService = STUDIO_SERVICE;
+        this.studioTable = STUDIO_TABLE;
         this.mapper = new Mapper();
     }
 
@@ -91,14 +92,14 @@ public class AlbumService {
         Album album = find(id);
 
         if (album == null) {
-            System.out.println("There is no album with this id.");
+            System.out.println("There is no album.");
             return;
         }
 
         System.out.println("Album id: " + album.getId());
         System.out.println("Name: " + album.getName());
         System.out.println("Year: " + album.getYear());
-        System.out.println("Studio: " + studioService.find(album.getStudioId()).getName());
+        System.out.println("Studio: " + studioTable.findById(album.getStudioId()).getName());
         System.out.println("Number of Likes: " + album.getNrLikes());
         System.out.println("Number of Searches: " + album.getNrSearch() + '\n');
 

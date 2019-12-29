@@ -30,10 +30,44 @@ public class PlaylistTable extends Table<Playlist> {
         return null;
     }
 
+    public Playlist findByIdUser(int id) throws SQLException {
+        ResultSet resultSet = sql.statement.executeQuery("Call get_playlist_by_id_by_user(" + id + ", " + USER_ONLINE.getUserID() + ");");
+
+        if (resultSet.next()) {
+            return new Playlist(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getInt(3));
+        }
+
+        return null;
+    }
+
+    public int findIdByNameUser(String name) throws SQLException {
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
+        ResultSet resultSet = sql.con.prepareCall("CALL get_playlist_id_by_name_by_user('" + name + "', " + USER_ONLINE.getUserID() +");").executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
     public List<Playlist> findAll() throws SQLException {
         List<Playlist> list = new ArrayList<>();
 
         ResultSet resultSet = sql.statement.executeQuery("Call get_all_playlist();");
+
+        while (resultSet.next()) {
+            list.add(new Playlist(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getInt(3)));
+        }
+
+        return list;
+    }
+
+    public List<Playlist> findAllUser() throws SQLException {
+        List<Playlist> list = new ArrayList<>();
+
+        ResultSet resultSet = sql.statement.executeQuery("Call get_all_playlist_by_user(" + USER_ONLINE.getUserID() + ");");
 
         while (resultSet.next()) {
             list.add(new Playlist(resultSet.getInt(1), resultSet.getString(2),

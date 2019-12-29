@@ -17,6 +17,7 @@ public class AddUserAction implements Action {
 
     @Override
     public void execute() throws SQLException {
+        System.out.println();
         Request request = new Request();
         request.hasString("Name", "What is your name? ");
         request.hasString("Birthdate", "What is your birthdate? [YYYY/MM/DD]: ");
@@ -25,5 +26,6 @@ public class AddUserAction implements Action {
         request.hasString("Email", "What is your email? ");
         request.hasString("Password", "Set your password: ");
         userService.add(request.ask());
+        System.out.println();
     }
 }
