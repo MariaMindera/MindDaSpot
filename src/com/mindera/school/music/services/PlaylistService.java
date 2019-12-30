@@ -1,6 +1,5 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.data.rows.Music;
 import com.mindera.school.music.data.rows.Playlist;
 import com.mindera.school.music.data.tables.PlaylistTable;
 import com.mindera.school.music.ui.KeyValue;
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PlaylistService {
-    PlaylistTable playlistTable;
+    private PlaylistTable playlistTable;
 
     public PlaylistService() {
         this.playlistTable = PLAYLIST_TABLE;

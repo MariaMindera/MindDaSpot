@@ -10,7 +10,7 @@ import java.util.List;
 import static com.mindera.school.music.data.tables.Tables.*;
 
 public class ProducerService {
-    ProducerTable producerTable;
+    private ProducerTable producerTable;
 
     public ProducerService() {
         this.producerTable = PRODUCER_TABLE;
@@ -21,7 +21,7 @@ public class ProducerService {
 
         for (KeyValue keyValue : keyValueList) {
             if (keyValue.getName().equals("Name")) {
-                if(producerTable.verifyIfExistsName(keyValue.getValue().toString())) {
+                if (producerTable.verifyIfExistsName(keyValue.getValue().toString())) {
                     System.out.println("This producer already exits.");
                     return;
                 }
@@ -51,7 +51,7 @@ public class ProducerService {
     public void printAll() throws SQLException {
         List<Producer> producerList = findAll();
 
-        if(producerList.isEmpty()) {
+        if (producerList.isEmpty()) {
             System.out.println("There is no producers.");
             return;
         }
@@ -65,7 +65,7 @@ public class ProducerService {
     public void print(int id) throws SQLException {
         Producer producer = find(id);
 
-        if(producer == null) {
+        if (producer == null) {
             System.out.println("There is no producer.");
             return;
         }

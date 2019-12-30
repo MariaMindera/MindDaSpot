@@ -16,7 +16,6 @@ public class PrintAllPlaylistUser implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         playlistService.printAllUser();
     }
 }

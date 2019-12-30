@@ -11,12 +11,12 @@ public class SQLConnection {
 
     public SQLConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/mindaSpot", "mindaSpot", "Mp11062001.");
+                    "jdbc:mysql://localhost:3306/mindaSpot", "mindaSpot", "minderaschool");
             statement = con.createStatement();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.print(e);
         }
     }
 

@@ -17,7 +17,6 @@ public class AdministratorAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         Request request = new Request();
         request.hasString("Email", "Email:");
         request.hasString("Password", "Password:");

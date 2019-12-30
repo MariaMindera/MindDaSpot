@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.mindera.school.music.services.Services.SQL_CONNECTION;
 
-public class IntermediateTable<TRow> {
+public class IntermediateTable {
     protected String table1;
     protected String table2;
     protected SQLConnection sql;

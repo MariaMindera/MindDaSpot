@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtistTable extends Table<Artist> {
+public class ArtistTable extends Table {
     public ArtistTable(String table) {
         super(table);
     }
@@ -20,7 +20,7 @@ public class ArtistTable extends Table<Artist> {
     public Artist findById(int id) throws SQLException {
         ResultSet resultSet = sql.statement.executeQuery("Call get_artist_by_id(" + id + ");");
 
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             return new Artist(resultSet.getInt(1), resultSet.getString(2),
                     resultSet.getInt(3), resultSet.getString(4), resultSet.getInt(5),
                     resultSet.getInt(6));

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProducerTable extends Table<Producer> {
+public class ProducerTable extends Table {
     public ProducerTable(String table) {
         super(table);
     }

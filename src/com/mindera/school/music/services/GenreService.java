@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class GenreService {
-    GenreTable genreTable;
-    Mapper mapper;
+    private GenreTable genreTable;
+    private Mapper mapper;
 
     public GenreService() {
         this.genreTable = GENRE_TABLE;

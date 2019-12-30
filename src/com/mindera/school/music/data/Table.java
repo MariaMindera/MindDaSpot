@@ -7,7 +7,7 @@ import static com.mindera.school.music.services.Services.SQL_CONNECTION;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Table<TRow extends Row> {
+public class Table {
     protected String table;
     protected SQLConnection sql;
 

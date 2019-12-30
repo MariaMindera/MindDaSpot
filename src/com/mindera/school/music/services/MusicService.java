@@ -9,7 +9,6 @@ import com.mindera.school.music.ui.KeyValue;
 import com.mindera.school.music.ui.Request;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
 import static com.mindera.school.music.data.tables.Tables.*;

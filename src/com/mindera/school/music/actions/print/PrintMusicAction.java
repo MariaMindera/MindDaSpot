@@ -19,11 +19,10 @@ public class PrintMusicAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         Request request = new Request();
         request.hasString("Name", "Insert the name of the song: ");
+
         List<KeyValue> list = request.ask();
-        System.out.println();
         musicService.print(musicService.findByName((String) list.get(0).getValue()));
     }
 }

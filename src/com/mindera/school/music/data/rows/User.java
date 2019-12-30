@@ -1,10 +1,6 @@
 package com.mindera.school.music.data.rows;
 
-import com.mindera.school.music.data.Row;
-
-import java.util.Date;
-
-public class User implements Row {
+public class User {
     private int id;
     private String name;
     private String birthdate;
@@ -26,7 +22,6 @@ public class User implements Row {
         this.password = password;
     }
 
-    @Override
     public int getId() {
         return id;
     }

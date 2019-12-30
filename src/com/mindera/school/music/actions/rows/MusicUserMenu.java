@@ -1,5 +1,6 @@
 package com.mindera.school.music.actions.rows;
 
+import com.mindera.school.music.actions.others.GiveLikeMusicAction;
 import com.mindera.school.music.actions.print.PrintAllMusicsAction;
 import com.mindera.school.music.actions.print.PrintMusicAction;
 import com.mindera.school.music.actions.add.AddMusicAction;
@@ -19,7 +20,8 @@ public class MusicUserMenu implements Action {
         menu.add(new Option("Back", new NoAction()), true);
         menu.add(new Option("Add new music", new AddMusicAction()));
         menu.add(new Option("Print a music", new PrintMusicAction()));
-        menu.add(new Option("Print all songs", new PrintAllMusicsAction()));
+        menu.add(new Option("Print all musics", new PrintAllMusicsAction()));
+        menu.add(new Option("Like a music", new GiveLikeMusicAction()));
         menu.add(new Option("Exit", new ExitOption()));
     }
 

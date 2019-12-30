@@ -1,8 +1,6 @@
 package com.mindera.school.music.data.rows;
 
-import com.mindera.school.music.data.Row;
-
-public class Country implements Row {
+public class Country {
     private int id;
     private String name;
 
@@ -14,7 +12,6 @@ public class Country implements Row {
     public Country() {
     }
 
-    @Override
     public int getId() {
         return id;
     }

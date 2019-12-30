@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicTable extends Table<Music> {
+public class MusicTable extends Table {
     public MusicTable(String table) {
         super(table);
     }

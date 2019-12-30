@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import static com.mindera.school.music.services.Services.*;
 
 public class AddUserAction implements Action {
-    UserService userService;
+    private UserService userService;
 
     public AddUserAction() {
         this.userService = USER_SERVICE;
@@ -17,7 +17,6 @@ public class AddUserAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         Request request = new Request();
         request.hasString("Name", "What is your name? ");
         request.hasString("Birthdate", "What is your birthdate? [YYYY/MM/DD]: ");
@@ -26,6 +25,5 @@ public class AddUserAction implements Action {
         request.hasString("Email", "What is your email? ");
         request.hasString("Password", "Set your password: ");
         userService.add(request.ask());
-        System.out.println();
     }
 }

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 public class UserAction implements Action {
     private Menu menu;
+
     public UserAction() {
         this.menu = new Menu();
         menu.add(new Option("Back", new NoAction()), true);
@@ -18,7 +19,6 @@ public class UserAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         menu.render();
     }
 }

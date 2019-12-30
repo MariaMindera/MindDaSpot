@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryTable extends Table<Country> {
+public class CountryTable extends Table {
     public CountryTable(String table) {
         super(table);
     }

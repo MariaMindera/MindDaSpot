@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class MindaSpot {
     public static void main(String[] args) throws SQLException {
-        System.out.println();
         Menu menu = new Menu();
         menu.add(new Option("User", new UserAction()));
         menu.add(new Option("Administrator", new AdministratorAction()));

@@ -1,6 +1,4 @@
-package com.mindera.school.music.data.intermediateRows;
-
-import com.mindera.school.music.data.intermediateTables.*;
+package com.mindera.school.music.data.intermediateTables;
 
 public class IntermediateTables {
     public static final AlbumArtistTable ALBUM_ARTIST_TABLE = new AlbumArtistTable("album", "artist");
