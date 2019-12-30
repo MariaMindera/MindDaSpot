@@ -16,7 +16,6 @@ public class PrintAllMusicsAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         musicService.printAll();
     }
 }

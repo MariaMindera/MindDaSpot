@@ -17,10 +17,8 @@ public class AddPlaylistAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         Request request = new Request();
         request.hasString("Name", "What is the name of the playlist?");
         playlistService.add(request.ask());
-        System.out.println();
     }
 }

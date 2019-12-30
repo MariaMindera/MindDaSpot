@@ -12,9 +12,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ArtistService {
-    ArtistTable artistTable;
-    CountryTable countryTable;
-    Mapper mapper;
+    private ArtistTable artistTable;
+    private CountryTable countryTable;
+    private Mapper mapper;
 
     public ArtistService() {
         this.artistTable = ARTIST_TABLE;

@@ -1,8 +1,6 @@
 package com.mindera.school.music.data.rows;
 
-import com.mindera.school.music.data.Row;
-
-public class Genre implements Row {
+public class Genre {
     private int id;
     private String name;
 
@@ -14,7 +12,6 @@ public class Genre implements Row {
         this.name = name;
     }
 
-    @Override
     public int getId() {
         return id;
     }

@@ -1,6 +1,5 @@
 package com.mindera.school.music.actions.others;
 
-import com.mindera.school.music.ui.SQLConnection;
 import com.mindera.school.music.services.UserService;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Request;
@@ -11,11 +10,9 @@ import static com.mindera.school.music.services.Services.*;
 
 public class LoginAction implements Action {
     private UserService userService;
-    private SQLConnection sql;
 
     public LoginAction() {
         this.userService = USER_SERVICE;
-        this.sql = SQL_CONNECTION;
     }
 
     @Override

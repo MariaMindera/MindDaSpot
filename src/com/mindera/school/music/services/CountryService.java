@@ -10,7 +10,7 @@ import java.util.List;
 import static com.mindera.school.music.data.tables.Tables.*;
 
 public class CountryService {
-    CountryTable countryTable;
+    private CountryTable countryTable;
 
     public CountryService() {
         this.countryTable = COUNTRY_TABLE;

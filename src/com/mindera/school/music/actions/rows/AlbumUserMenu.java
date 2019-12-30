@@ -5,21 +5,17 @@ import com.mindera.school.music.actions.others.ExitOption;
 import com.mindera.school.music.actions.others.NoAction;
 import com.mindera.school.music.actions.print.PrintAlbumAction;
 import com.mindera.school.music.actions.print.PrintAllAlbumsAction;
-import com.mindera.school.music.services.AlbumService;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Menu;
 import com.mindera.school.music.ui.Option;
 
-import static com.mindera.school.music.services.Services.ALBUM_SERVICE;
 
 import java.sql.SQLException;
 
 public class AlbumUserMenu implements Action {
-    private AlbumService albumService;
     private Menu menu;
 
     public AlbumUserMenu() {
-        albumService = ALBUM_SERVICE;
         menu = new Menu();
         menu.add(new Option("Back", new NoAction()), true);
         menu.add(new Option("Add new album", new AddAlbumAction()));
@@ -30,7 +26,6 @@ public class AlbumUserMenu implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         menu.render();
     }
 }

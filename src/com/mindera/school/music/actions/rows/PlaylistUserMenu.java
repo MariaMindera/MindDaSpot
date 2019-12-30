@@ -23,7 +23,6 @@ public class PlaylistUserMenu implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         menu.render();
     }
 }

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudioTable extends Table<Studio> {
+public class StudioTable extends Table {
     public StudioTable(String table) {
         super(table);
     }

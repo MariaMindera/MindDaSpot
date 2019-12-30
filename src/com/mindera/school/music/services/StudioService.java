@@ -12,9 +12,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class StudioService {
-    StudioTable studioTable;
-    CountryTable countryTable;
-    Mapper mapper;
+    private StudioTable studioTable;
+    private CountryTable countryTable;
+    private Mapper mapper;
 
     public StudioService() {
         this.studioTable = STUDIO_TABLE;
@@ -63,7 +63,7 @@ public class StudioService {
     public void printAllStudios() throws SQLException {
         List<Studio> studioList = findAll();
 
-        if(studioList.isEmpty()) {
+        if (studioList.isEmpty()) {
             System.out.println("There is no studios.");
             return;
         }
@@ -77,7 +77,7 @@ public class StudioService {
     public void print(int id) throws SQLException {
         Studio studio = find(id);
 
-        if(studio == null) {
+        if (studio == null) {
             System.out.println("There is no studio.");
             return;
         }

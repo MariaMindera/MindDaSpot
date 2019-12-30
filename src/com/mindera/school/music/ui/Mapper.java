@@ -23,7 +23,7 @@ public class Mapper {
     }
 
     public int getCountryIdByName(String name) throws SQLException {
-        name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         int id = countryTable.findIdByName(name);
         if (id == 0) {
             countryTable.add(new Country(id, name));
@@ -33,7 +33,7 @@ public class Mapper {
     }
 
     public int getGenreIdByName(String name) throws SQLException {
-        name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         int id = genreTable.findIdByName(name);
         if (id == 0) {
             genreTable.add(new Genre(id, name));
@@ -43,7 +43,7 @@ public class Mapper {
     }
 
     public int getStudioIdByName(String name) throws SQLException {
-        name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         int id = studioTable.findIdByName(name);
         if (id == 0) {
             System.out.println('\n' + "It is a new studio. Please insert the date." + '\n');

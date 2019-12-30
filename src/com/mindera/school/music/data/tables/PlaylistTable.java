@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistTable extends Table<Playlist> {
+public class PlaylistTable extends Table {
     public PlaylistTable(String table) {
         super(table);
     }
@@ -44,7 +44,7 @@ public class PlaylistTable extends Table<Playlist> {
     public int findIdByNameUser(String name) throws SQLException {
         name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
 
-        ResultSet resultSet = sql.con.prepareCall("CALL get_playlist_id_by_name_by_user('" + name + "', " + USER_ONLINE.getUserID() +");").executeQuery();
+        ResultSet resultSet = sql.con.prepareCall("CALL get_playlist_id_by_name_by_user('" + name + "', " + USER_ONLINE.getUserID() + ");").executeQuery();
         if (resultSet.next()) {
             return resultSet.getInt(1);
         }

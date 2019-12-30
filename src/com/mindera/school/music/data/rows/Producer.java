@@ -1,8 +1,6 @@
 package com.mindera.school.music.data.rows;
 
-import com.mindera.school.music.data.Row;
-
-public class Producer implements Row {
+public class Producer {
     private int id;
     private String name;
 
@@ -14,7 +12,6 @@ public class Producer implements Row {
         this.name = name;
     }
 
-    @Override
     public int getId() {
         return id;
     }

@@ -19,11 +19,10 @@ public class PrintPlaylistUserAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         Request request = new Request();
         request.hasString("Name", "What is the name of the playlist?");
+
         List<KeyValue> list = request.ask();
-        System.out.println();
         playlistService.printUser(playlistService.findIdByNameUser((String) list.get(0).getValue()));
     }
 }

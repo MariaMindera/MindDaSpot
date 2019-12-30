@@ -10,7 +10,6 @@ import com.mindera.school.music.ui.Request;
 import static com.mindera.school.music.data.tables.Tables.*;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 public class UserService {

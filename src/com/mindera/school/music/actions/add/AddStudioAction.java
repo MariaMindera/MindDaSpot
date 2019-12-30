@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import static com.mindera.school.music.services.Services.*;
 
 public class AddStudioAction implements Action {
-    StudioService studioService;
+    private StudioService studioService;
 
     public AddStudioAction() {
         this.studioService = STUDIO_SERVICE;
@@ -17,12 +17,10 @@ public class AddStudioAction implements Action {
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         Request request = new Request();
         request.hasString("Name", "Insert the name of the studio: ");
         request.hasString("City", "Insert the name of the city: ");
         request.hasString("Country", "Insert the name of the country: ");
         studioService.add(request.ask());
-        System.out.println();
     }
 }

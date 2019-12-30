@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenreTable extends Table<Genre> {
+public class GenreTable extends Table {
     public GenreTable(String table) {
         super(table);
     }

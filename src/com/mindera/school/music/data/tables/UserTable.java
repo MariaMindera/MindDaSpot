@@ -10,7 +10,7 @@ import java.util.List;
 
 import static com.mindera.school.music.services.Services.USER_ONLINE;
 
-public class UserTable extends Table<User> {
+public class UserTable extends Table {
     public UserTable(String table) {
         super(table);
     }
