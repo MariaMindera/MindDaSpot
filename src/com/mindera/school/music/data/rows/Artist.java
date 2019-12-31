@@ -1,5 +1,7 @@
 package com.mindera.school.music.data.rows;
 
+import com.mindera.school.music.ui.StringCode;
+
 public class Artist {
     private int id;
     private String name;
@@ -13,7 +15,7 @@ public class Artist {
 
     public Artist(int id, String name, int countryId, String description, int nrSearch, int nrFollowers) {
         this.id = id;
-        this.name = name;
+        this.name = StringCode.capitalizeEachWord(name);
         this.countryId = countryId;
         this.description = description;
         this.nrSearch = nrSearch;
@@ -33,7 +35,7 @@ public class Artist {
     }
 
     public void setName(String name) {
-        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        this.name = StringCode.capitalizeEachWord(name);
     }
 
     public int getCountryId() {

@@ -1,10 +1,9 @@
 package com.mindera.school.music.actions.others;
 
-import com.mindera.school.music.actions.rows.AlbumUserMenu;
-import com.mindera.school.music.actions.rows.ArtistUserMenu;
-import com.mindera.school.music.actions.rows.MusicUserMenu;
-import com.mindera.school.music.actions.rows.PlaylistUserMenu;
-import com.mindera.school.music.data.rows.Playlist;
+import com.mindera.school.music.actions.artist.ArtistMenuUserAction;
+import com.mindera.school.music.actions.album.AlbumMenuUserAction;
+import com.mindera.school.music.actions.music.MusicMenuUserAction;
+import com.mindera.school.music.actions.playlist.PlaylistMenuUserAction;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Menu;
 import com.mindera.school.music.ui.Option;
@@ -17,10 +16,10 @@ public class MenuUserAction implements Action {
     public MenuUserAction() {
         this.menu = new Menu();
         menu.add(new Option("Back", new LogoutAction()), true);
-        menu.add(new Option("Music", new MusicUserMenu()));
-        menu.add(new Option("Album", new AlbumUserMenu()));
-        menu.add(new Option("Artist", new ArtistUserMenu()));
-        menu.add(new Option("Playlist", new PlaylistUserMenu()));
+        menu.add(new Option("Album", new AlbumMenuUserAction()));
+        menu.add(new Option("Artist", new ArtistMenuUserAction()));
+        menu.add(new Option("Music", new MusicMenuUserAction()));
+        menu.add(new Option("Playlist", new PlaylistMenuUserAction()));
         menu.add(new Option("Exit", new ExitOption()));
     }
 

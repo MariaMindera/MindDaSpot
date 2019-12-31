@@ -38,4 +38,10 @@ public class IntermediateTable {
 
         return list;
     }
+
+    public boolean exists(int id1, int id2) throws SQLException {
+        ResultSet resultSet = sql.statement.executeQuery("Call exists_" + table1 + "_" + table2 + "(" + id1 + ", " + id2 + ");");
+
+        return resultSet.next();
+    }
 }

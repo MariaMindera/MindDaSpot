@@ -1,5 +1,7 @@
 package com.mindera.school.music.data.rows;
 
+import com.mindera.school.music.ui.StringCode;
+
 public class Studio {
     private int id;
     private String name;
@@ -11,7 +13,7 @@ public class Studio {
 
     public Studio(int id, String name, String city, int countryId) {
         this.id = id;
-        this.name = name;
+        this.name = StringCode.capitalizeEachWord(name);
         this.city = city;
         this.countryId = countryId;
     }
@@ -29,7 +31,7 @@ public class Studio {
     }
 
     public void setName(String name) {
-        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        this.name = StringCode.capitalizeEachWord(name);
     }
 
     public String getCity() {
