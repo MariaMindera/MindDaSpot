@@ -1,11 +1,12 @@
 package com.mindera.school.music.ui;
 
-import com.mindera.school.music.actions.add.AddStudioAction;
+import com.mindera.school.music.actions.artist.AddArtistAction;
+import com.mindera.school.music.actions.producer.AddProducerAction;
+import com.mindera.school.music.actions.studio.AddStudioAction;
 import com.mindera.school.music.data.rows.Country;
 import com.mindera.school.music.data.rows.Genre;
-import com.mindera.school.music.data.tables.CountryTable;
-import com.mindera.school.music.data.tables.GenreTable;
-import com.mindera.school.music.data.tables.StudioTable;
+import com.mindera.school.music.data.rows.Producer;
+import com.mindera.school.music.data.tables.*;
 
 import java.sql.SQLException;
 
@@ -15,15 +16,19 @@ public class Mapper {
     private CountryTable countryTable;
     private GenreTable genreTable;
     private StudioTable studioTable;
+    private ProducerTable producerTable;
+    private ArtistTable artistTable;
 
     public Mapper() {
         this.countryTable = COUNTRY_TABLE;
         this.genreTable = GENRE_TABLE;
         this.studioTable = STUDIO_TABLE;
+        this.producerTable = PRODUCER_TABLE;
+        this.artistTable = ARTIST_TABLE;
     }
 
     public int getCountryIdByName(String name) throws SQLException {
-        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        name = StringCode.capitalizeEachWord(name);
         int id = countryTable.findIdByName(name);
         if (id == 0) {
             countryTable.add(new Country(id, name));
@@ -33,7 +38,7 @@ public class Mapper {
     }
 
     public int getGenreIdByName(String name) throws SQLException {
-        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        name = StringCode.capitalizeEachWord(name);
         int id = genreTable.findIdByName(name);
         if (id == 0) {
             genreTable.add(new Genre(id, name));
@@ -43,12 +48,33 @@ public class Mapper {
     }
 
     public int getStudioIdByName(String name) throws SQLException {
-        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        name = StringCode.capitalizeEachWord(name);
         int id = studioTable.findIdByName(name);
         if (id == 0) {
             System.out.println('\n' + "It is a new studio. Please insert the date." + '\n');
             new AddStudioAction().execute();
             id = studioTable.findIdByName(name);
+        }
+        return id;
+    }
+
+    public int getProducerIdByName(String name) throws SQLException {
+        name = StringCode.capitalizeEachWord(name);
+        int id = producerTable.findIdByName(name);
+        if (id == 0) {
+            producerTable.add(new Producer(name));
+            id = producerTable.findIdByName(name);
+        }
+        return id;
+    }
+
+    public int getArtistIdByName(String name) throws SQLException {
+        name = StringCode.capitalizeEachWord(name);
+        int id = artistTable.findIdByName(name);
+        if (id == 0) {
+            System.out.println('\n' + "It is a new artist. Please insert the date." + '\n');
+            new AddArtistAction().execute();
+            id = artistTable.findIdByName(name);
         }
         return id;
     }

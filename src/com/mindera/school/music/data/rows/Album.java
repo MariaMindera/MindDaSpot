@@ -1,16 +1,20 @@
 package com.mindera.school.music.data.rows;
 
+import com.mindera.school.music.ui.StringCode;
+
 public class Album {
     private int id;
     private String name;
     private int year;
-    private int nrSearch = 0;
+    private int nrSearch;
     private int studioId;
-    private int nrLikes = 0;
+    private int nrLikes;
+    private int producerId;
+    private int artistId;
 
     public Album(int id, String name, int year, int nrSearch, int studioId, int nrLikes) {
         this.id = id;
-        this.name = name;
+        this.name = StringCode.capitalizeEachWord(name);
         this.year = year;
         this.nrSearch = nrSearch;
         this.studioId = studioId;
@@ -18,6 +22,22 @@ public class Album {
     }
 
     public Album() {
+    }
+
+    public int getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(int artistId) {
+        this.artistId = artistId;
+    }
+
+    public int getProducerId() {
+        return producerId;
+    }
+
+    public void setProducerId(int producerId) {
+        this.producerId = producerId;
     }
 
     public int getId() {
@@ -33,7 +53,7 @@ public class Album {
     }
 
     public void setName(String name) {
-        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        this.name = StringCode.capitalizeEachWord(name);
     }
 
     public int getYear() {
@@ -48,10 +68,6 @@ public class Album {
         return nrSearch;
     }
 
-    public void setNrSearch() {
-        this.nrSearch++;
-    }
-
     public int getStudioId() {
         return studioId;
     }
@@ -62,9 +78,5 @@ public class Album {
 
     public int getNrLikes() {
         return nrLikes;
-    }
-
-    public void setNrLikes() {
-        this.nrLikes++;
     }
 }

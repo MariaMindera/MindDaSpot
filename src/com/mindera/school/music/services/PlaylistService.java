@@ -1,19 +1,26 @@
 package com.mindera.school.music.services;
 
+import com.mindera.school.music.data.intermediateTables.MusicPlaylistTable;
 import com.mindera.school.music.data.rows.Playlist;
+import com.mindera.school.music.data.tables.MusicTable;
 import com.mindera.school.music.data.tables.PlaylistTable;
 import com.mindera.school.music.ui.KeyValue;
 
 import static com.mindera.school.music.data.tables.Tables.*;
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class PlaylistService {
     private PlaylistTable playlistTable;
+    private MusicPlaylistTable musicPlaylistTable;
+    private MusicTable musicTable;
 
     public PlaylistService() {
         this.playlistTable = PLAYLIST_TABLE;
+        this.musicPlaylistTable = MUSIC_PLAYLIST_TABLE;
+        this.musicTable = MUSIC_TABLE;
     }
 
     public void add(List<KeyValue> keyValueList) throws SQLException {
@@ -103,12 +110,13 @@ public class PlaylistService {
 
         System.out.println("Playlist id: " + playlist.getId());
         System.out.println("Name: " + playlist.getName());
-//        System.out.println("Musics: ");
-//
-//        List<Music> musicList = playlist.getMusicList();
-//        for (Music music : musicList) {
-//            System.out.print("Id: " + music.getId() + " Name: " + music.getName() + '\n');
-//        }
+        System.out.println("User id: " + playlist.getUserId());
+        System.out.println("Musics: ");
+
+        List<Integer> musicList = musicPlaylistTable.find(id);
+        for (Integer integer : musicList) {
+            System.out.println("Name: " + musicTable.findById(integer).getName());
+        }
     }
 
     public void print(int id) throws SQLException {
@@ -121,11 +129,12 @@ public class PlaylistService {
 
         System.out.println("Playlist id: " + playlist.getId());
         System.out.println("Name: " + playlist.getName());
-//        System.out.println("Musics: ");
-//
-//        List<Music> musicList = playlist.getMusicList();
-//        for (Music music : musicList) {
-//            System.out.print("Id: " + music.getId() + " Name: " + music.getName() + '\n');
-//        }
+        System.out.println("User id: " + playlist.getUserId());
+        System.out.println("Musics: ");
+
+        List<Integer> musicList = musicPlaylistTable.find(id);
+        for (Integer integer : musicList) {
+            System.out.println("Name: " + musicTable.findById(integer).getName());
+        }
     }
 }

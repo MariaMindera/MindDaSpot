@@ -1,5 +1,7 @@
 package com.mindera.school.music.data.rows;
 
+import com.mindera.school.music.ui.StringCode;
+
 public class Music {
     private int id;
     private String name;
@@ -18,7 +20,7 @@ public class Music {
 
     public Music(int id, String name, String duration, int year, boolean explicit, String spotifyURL, String youtubeURL, int nrSearch, int countryId, int genreId, int nrLikes) {
         this.id = id;
-        this.name = name;
+        this.name = StringCode.capitalizeEachWord(name);
         this.duration = duration;
         this.year = year;
         this.explicit = explicit;
@@ -43,7 +45,7 @@ public class Music {
     }
 
     public void setName(String name) {
-        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        this.name = StringCode.capitalizeEachWord(name);
     }
 
     public String getDuration() {

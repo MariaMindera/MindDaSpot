@@ -18,11 +18,14 @@ public class LoginAction implements Action {
     @Override
     public void execute() throws SQLException {
         Request request = new Request();
-        System.out.println();
         request.hasString("Email", "Email:");
         request.hasString("Password", "Password:");
         userService.userOnline(request.ask());
 
-        new MenuUserAction().execute();
+        if (USER_ONLINE.isAdm()) {
+            //TODO
+        } else {
+            new MenuUserAction().execute();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.mindera.school.music.services;
 
+import com.mindera.school.music.data.favouriteTables.FavouriteMusicTable;
 import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Music;
 import com.mindera.school.music.data.tables.CountryTable;
@@ -8,22 +9,25 @@ import com.mindera.school.music.data.tables.MusicTable;
 import com.mindera.school.music.ui.KeyValue;
 import com.mindera.school.music.ui.Request;
 
+import static com.mindera.school.music.data.tables.Tables.*;
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
+
 import java.sql.SQLException;
 import java.util.List;
-
-import static com.mindera.school.music.data.tables.Tables.*;
 
 public class MusicService {
     private MusicTable musicTable;
     private CountryTable countryTable;
     private GenreTable genreTable;
     private Mapper mapper;
+    private FavouriteMusicTable favouriteMusicTable;
 
     public MusicService() {
         this.musicTable = MUSIC_TABLE;
         this.countryTable = COUNTRY_TABLE;
         this.genreTable = GENRE_TABLE;
         this.mapper = new Mapper();
+        this.favouriteMusicTable = FAVOURITE_MUSIC_TABLE;
     }
 
     public void add(List<KeyValue> keyValueList) throws SQLException {
@@ -101,6 +105,14 @@ public class MusicService {
         return musicTable.findIdByName(name);
     }
 
+    public void addLike(String name) throws SQLException {
+        favouriteMusicTable.add(musicTable.findIdByName(name));
+    }
+
+    public void removeLike(String name) throws SQLException {
+        favouriteMusicTable.remove(musicTable.findIdByName(name));
+    }
+
     public List<Music> findAll() throws SQLException {
         return musicTable.findAll();
     }
@@ -137,7 +149,6 @@ public class MusicService {
         System.out.println("Explicit: " + music.isExplicit());
         System.out.println("Spotify url: " + music.getSpotifyURL());
         System.out.println("Youtube url: " + music.getYoutubeURL());
-        System.out.println("Number of likes: " + music.getNrLikes());
-        System.out.println("Number of Searches: " + music.getNrSearch() + '\n');
+        System.out.println("Number of likes: " + music.getNrLikes() + '\n');
     }
 }
