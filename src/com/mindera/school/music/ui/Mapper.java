@@ -1,5 +1,6 @@
 package com.mindera.school.music.ui;
 
+import com.mindera.school.music.actions.album.AddAlbumAction;
 import com.mindera.school.music.actions.artist.AddArtistAction;
 import com.mindera.school.music.actions.producer.AddProducerAction;
 import com.mindera.school.music.actions.studio.AddStudioAction;
@@ -18,6 +19,7 @@ public class Mapper {
     private StudioTable studioTable;
     private ProducerTable producerTable;
     private ArtistTable artistTable;
+    private AlbumTable albumTable;
 
     public Mapper() {
         this.countryTable = COUNTRY_TABLE;
@@ -25,6 +27,7 @@ public class Mapper {
         this.studioTable = STUDIO_TABLE;
         this.producerTable = PRODUCER_TABLE;
         this.artistTable = ARTIST_TABLE;
+        this.albumTable = ALBUM_TABLE;
     }
 
     public int getCountryIdByName(String name) throws SQLException {
@@ -75,6 +78,17 @@ public class Mapper {
             System.out.println('\n' + "It is a new artist. Please insert the date." + '\n');
             new AddArtistAction().execute();
             id = artistTable.findIdByName(name);
+        }
+        return id;
+    }
+
+    public int getAlbumIdByName(String name) throws SQLException {
+        name = StringCode.capitalizeEachWord(name);
+        int id = albumTable.findIdByName(name);
+        if (id == 0) {
+            System.out.println('\n' + "It is a new album. Please insert the date." + '\n');
+            new AddAlbumAction().execute();
+            id = albumTable.findIdByName(name);
         }
         return id;
     }

@@ -37,7 +37,16 @@ public class CountryService {
     }
 
     public void removeByName(String name) throws SQLException {
-        countryTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0){
+            System.out.println("This country doesn't exists.");
+        } else {
+            countryTable.removeById(id);
+        }
+    }
+
+    public int findIdByName(String name) throws SQLException {
+        return countryTable.findIdByName(name);
     }
 
     public Country find(int id) throws SQLException {

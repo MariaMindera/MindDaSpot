@@ -19,6 +19,6 @@ public class PrintArtistAction implements Action {
     public void execute() throws SQLException {
         Request request = new Request();
         request.hasString("Name", "Insert the name of the artist: ");
-        artistService.print(artistService.findByName((String) request.ask().get(0).getValue()));
+        artistService.print(artistService.findIdByName((String) request.ask().get(0).getValue()));
     }
 }

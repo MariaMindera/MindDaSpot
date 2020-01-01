@@ -59,7 +59,12 @@ public class ArtistService {
     }
 
     public void removeByName(String name) throws SQLException {
-        artistTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0) {
+            System.out.println("This artist doesn't exists.");
+        } else {
+            artistTable.removeById(id);
+        }
     }
 
     public Artist find(int id) throws SQLException {
@@ -71,7 +76,7 @@ public class ArtistService {
     }
 
     public void printAllAlbums(String name) throws SQLException {
-        List<Album> list = artistTable.findAllAlbums(findByName(name));
+        List<Album> list = artistTable.findAllAlbums(findIdByName(name));
 
         for (Album album : list) {
             System.out.println("Name: " + album.getName());
@@ -79,7 +84,7 @@ public class ArtistService {
     }
 
     public void printAllMusics(String name) throws SQLException {
-        List<Music> list = artistTable.findAllMusics(findByName(name));
+        List<Music> list = artistTable.findAllMusics(findIdByName(name));
 
         for (Music music : list) {
             if (USER_ONLINE.isLegalAge()) {
@@ -94,19 +99,29 @@ public class ArtistService {
 
     public void addFollower(String name) throws SQLException {
         int artistId = artistTable.findIdByName(name);
-        if (favouriteArtistTable.exists(artistId)) {
-            System.out.println("This artist is already followed.");
+
+        if (artistId == 0) {
+            System.out.println("This artist doesn't exist.");
         } else {
-            favouriteArtistTable.add(artistId);
+            if (favouriteArtistTable.exists(artistId)) {
+                System.out.println("This artist is already followed.");
+            } else {
+                favouriteArtistTable.add(artistId);
+            }
         }
     }
 
     public void removeFollower(String name) throws SQLException {
         int artistId = artistTable.findIdByName(name);
-        if (favouriteArtistTable.exists(artistId)) {
-            favouriteArtistTable.remove(artistId);
+
+        if (artistId == 0) {
+            System.out.println("This artist doesn't exist.");
         } else {
-            System.out.println("This artist is already unfollowed.");
+            if (favouriteArtistTable.exists(artistId)) {
+                favouriteArtistTable.remove(artistId);
+            } else {
+                System.out.println("This artist is already unfollowed.");
+            }
         }
     }
 
@@ -121,7 +136,7 @@ public class ArtistService {
         }
     }
 
-    public int findByName(String name) throws SQLException {
+    public int findIdByName(String name) throws SQLException {
         return artistTable.findIdByName(name);
     }
 

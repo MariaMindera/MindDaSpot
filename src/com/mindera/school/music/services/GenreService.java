@@ -40,7 +40,16 @@ public class GenreService {
     }
 
     public void removeByName(String name) throws SQLException {
-        genreTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0){
+            System.out.println("This genre doesn't exists.");
+        } else {
+            genreTable.removeById(id);
+        }
+    }
+
+    public int findIdByName(String name) throws SQLException {
+        return genreTable.findIdByName(name);
     }
 
     public Genre find(int id) throws SQLException {

@@ -7,15 +7,15 @@ import java.sql.SQLException;
 
 import static com.mindera.school.music.services.Services.PLAYLIST_SERVICE;
 
-public class PrintAllPlaylistsUserAction implements Action {
+public class PrintAllPlaylistsAction implements Action {
     private PlaylistService playlistService;
 
-    public PrintAllPlaylistsUserAction() {
+    public PrintAllPlaylistsAction() {
         this.playlistService = PLAYLIST_SERVICE;
     }
 
     @Override
     public void execute() throws SQLException {
-        playlistService.printAllUser();
+        playlistService.printAll();
     }
 }

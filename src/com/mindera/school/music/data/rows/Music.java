@@ -14,6 +14,7 @@ public class Music {
     private int countryId;
     private int genreId;
     private int nrLikes = 0;
+    private int album_id;
 
     public Music() {
     }
@@ -30,6 +31,14 @@ public class Music {
         this.countryId = countryId;
         this.genreId = genreId;
         this.nrLikes = nrLikes;
+    }
+
+    public int getAlbum_id() {
+        return album_id;
+    }
+
+    public void setAlbum_id(int album_id) {
+        this.album_id = album_id;
     }
 
     public int getId() {

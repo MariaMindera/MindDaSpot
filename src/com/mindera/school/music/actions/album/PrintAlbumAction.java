@@ -22,6 +22,6 @@ public class PrintAlbumAction implements Action {
         Request request = new Request();
         request.hasString("Name", "Insert the name of the album: ");
 
-        albumService.print(albumService.findByName((String) request.ask().get(0).getValue()));
+        albumService.print(albumService.findIdByName((String) request.ask().get(0).getValue()));
     }
 }

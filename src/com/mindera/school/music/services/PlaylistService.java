@@ -1,6 +1,7 @@
 package com.mindera.school.music.services;
 
 import com.mindera.school.music.data.intermediateTables.MusicPlaylistTable;
+import com.mindera.school.music.data.rows.Music;
 import com.mindera.school.music.data.rows.Playlist;
 import com.mindera.school.music.data.tables.MusicTable;
 import com.mindera.school.music.data.tables.PlaylistTable;
@@ -8,6 +9,7 @@ import com.mindera.school.music.ui.KeyValue;
 
 import static com.mindera.school.music.data.tables.Tables.*;
 import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
+import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -39,12 +41,37 @@ public class PlaylistService {
         playlistTable.add(playlist);
     }
 
+    public void addMusicPlaylist(String namePlaylist, String nameMusic) throws SQLException {
+        int playlistId = findIdByName(namePlaylist);
+        int musicId = musicTable.findIdByName(nameMusic);
+
+        if (playlistId == 0) {
+            System.out.println("This playlist doesn't exits.");
+            return;
+        }
+        if (musicId == 0) {
+            System.out.println("This music doesn't exits.");
+            return;
+        }
+
+        if (musicPlaylistTable.exists(musicId, playlistId)) {
+            System.out.println("This music already exits in this playlist.");
+        } else {
+            musicPlaylistTable.add(musicId, playlistId);
+        }
+    }
+
     public void removeById(int id) throws SQLException {
         playlistTable.removeById(id);
     }
 
     public void removeByName(String name) throws SQLException {
-        playlistTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0){
+            System.out.println("This playlist doesn't exists.");
+        } else {
+            playlistTable.removeById(id);
+        }
     }
 
     public Playlist find(int id) throws SQLException {
@@ -71,7 +98,23 @@ public class PlaylistService {
         return playlistTable.findAllUser();
     }
 
-    public void printAllUser() throws SQLException {
+    public void print(int id) throws SQLException {
+        if (USER_ONLINE.isAdm()) {
+            printAdm(id);
+        } else {
+            printUser(id);
+        }
+    }
+
+    public void printAll() throws SQLException {
+        if (USER_ONLINE.isAdm()) {
+            printAllAdm();
+        } else {
+            printAllUser();
+        }
+    }
+
+    private void printAllUser() throws SQLException {
         List<Playlist> playlistList = findAllUser();
 
         if (playlistList.isEmpty()) {
@@ -80,12 +123,11 @@ public class PlaylistService {
         }
 
         for (Playlist playlist : playlistList) {
-            System.out.println("Playlist id: " + playlist.getId());
             System.out.println("Name: " + playlist.getName() + '\n');
         }
     }
 
-    public void printAll() throws SQLException {
+    private void printAllAdm() throws SQLException {
         List<Playlist> playlistList = findAll();
 
         if (playlistList.isEmpty()) {
@@ -100,7 +142,7 @@ public class PlaylistService {
         }
     }
 
-    public void printUser(int id) throws SQLException {
+    private void printUser(int id) throws SQLException {
         Playlist playlist = findUser(id);
 
         if (playlist == null) {
@@ -108,18 +150,24 @@ public class PlaylistService {
             return;
         }
 
-        System.out.println("Playlist id: " + playlist.getId());
         System.out.println("Name: " + playlist.getName());
-        System.out.println("User id: " + playlist.getUserId());
         System.out.println("Musics: ");
 
         List<Integer> musicList = musicPlaylistTable.find(id);
+
+        if(musicList.isEmpty()) {
+            System.out.println("There is no musics in this playlists.");
+        }
+
         for (Integer integer : musicList) {
-            System.out.println("Name: " + musicTable.findById(integer).getName());
+            Music music = musicTable.findById(integer);
+            if (music != null) {
+                System.out.println("Name: " + music.getName());
+            }
         }
     }
 
-    public void print(int id) throws SQLException {
+    private void printAdm(int id) throws SQLException {
         Playlist playlist = find(id);
 
         if (playlist == null) {

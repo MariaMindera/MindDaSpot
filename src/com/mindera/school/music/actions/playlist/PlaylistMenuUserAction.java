@@ -14,8 +14,11 @@ public class PlaylistMenuUserAction implements Action {
     public PlaylistMenuUserAction() {
         menu = new Menu();
         menu.add(new Option("Back", new NoAction()), true);
-        menu.add(new Option("My playlists", new PrintPlaylistMenuUserAction()));
-        menu.add(new Option("Add new Playlist", new AddPlaylistAction()));
+        menu.add(new Option("Add playlist", new AddPlaylistAction()));
+        menu.add(new Option("Add music to playlist", new AddMusicPlaylistAction()));
+        menu.add(new Option("Print a playlist", new PrintPlaylistAction()));
+        menu.add(new Option("Print all playlists", new PrintAllPlaylistsAction()));
+        menu.add(new Option("Delete playlist", new DeletePlaylistAction()));
         menu.add(new Option("Exit", new ExitOption()));
     }
 
