@@ -14,16 +14,17 @@ public class MusicMenuUserAction implements Action {
     public MusicMenuUserAction() {
         menu = new Menu();
         menu.add(new Option("Back", new NoAction()), true);
-        menu.add(new Option("Add new music", new AddMusicAction()));
+        menu.add(new Option("Add music", new AddMusicAction()));
         menu.add(new Option("Print a music", new PrintMusicAction()));
         menu.add(new Option("Print all musics", new PrintAllMusicsAction()));
-        menu.add(new Option("Like a music", new GiveLikeMusicAction()));
+        menu.add(new Option("Print all liked musics", new PrintAllLikedMusicsAction()));
+        menu.add(new Option("Like music", new LikeMusicAction()));
+        menu.add(new Option("Unlike music", new UnlikeMusicAction()));
         menu.add(new Option("Exit", new ExitOption()));
     }
 
     @Override
     public void execute() throws SQLException {
-        System.out.println();
         menu.render();
     }
 }

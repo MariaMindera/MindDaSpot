@@ -49,7 +49,16 @@ public class StudioService {
     }
 
     public void removeByName(String name) throws SQLException {
-        studioTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0){
+            System.out.println("This studio doesn't exists.");
+        } else {
+            studioTable.removeById(id);
+        }
+    }
+
+    public int findIdByName(String name) throws SQLException {
+        return studioTable.findIdByName(name);
     }
 
     public Studio find(int id) throws SQLException {

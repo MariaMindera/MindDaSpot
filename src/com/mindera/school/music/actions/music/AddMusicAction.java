@@ -24,6 +24,7 @@ public class AddMusicAction implements Action {
         request.hasString("Duration", "Insert the duration of the song. [HHH:MM:SS]: ");
         request.hasString("Country", "Insert the country of the song: ");
         request.hasYesNo("Explicit", "Is the music explicit? [Y/N]: ");
+        request.hasString("Album", "Insert the name of the album: ");
         request.hasString("SpotifyURL", "Insert the spotify url of the song: ");
         request.hasString("YoutubeURL", "Insert the youtube url of the song: ");
         musicService.add(request.ask());

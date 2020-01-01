@@ -1,5 +1,6 @@
 package com.mindera.school.music.services;
 
+import com.mindera.school.music.actions.music.AddMusicAction;
 import com.mindera.school.music.data.favouriteTables.FavouriteMusicTable;
 import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Music;
@@ -11,6 +12,7 @@ import com.mindera.school.music.ui.Request;
 
 import static com.mindera.school.music.data.tables.Tables.*;
 import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
+import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -51,7 +53,7 @@ public class MusicService {
                 music.setYear((Integer) keyValue.getValue());
             }
             if (keyValue.getName().equals("Duration")) {
-                music.setDuration((String) keyValue.getValue());
+                music.setDuration(keyValue.getValue().toString());
             }
             if (keyValue.getName().equals("Country")) {
                 music.setCountryId(
@@ -84,6 +86,9 @@ public class MusicService {
             if (keyValue.getName().equals("YoutubeURL")) {
                 music.setYoutubeURL(keyValue.getValue().toString());
             }
+            if (keyValue.getName().equals("Album")) {
+                music.setAlbum_id(mapper.getAlbumIdByName(keyValue.getValue().toString()));
+            }
         }
 
         musicTable.add(music);
@@ -94,49 +99,86 @@ public class MusicService {
     }
 
     public void removeByName(String name) throws SQLException {
-        musicTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0) {
+            System.out.println("This music doesn't exists.");
+        } else {
+            musicTable.removeById(id);
+        }
     }
 
     public Music findById(int id) throws SQLException {
         return musicTable.findById(id);
     }
 
-    public int findByName(String name) throws SQLException {
+    public int findIdByName(String name) throws SQLException {
         return musicTable.findIdByName(name);
     }
 
-    public void addLike(String name) throws SQLException {
-        favouriteMusicTable.add(musicTable.findIdByName(name));
+    public void addLikeMusic(String name) throws SQLException {
+        int musicId = musicTable.findIdByName(name);
+        if (musicId == 0) {
+            System.out.println("This music doesn't exist.");
+        } else {
+            if (favouriteMusicTable.exists(musicId)) {
+                System.out.println("This music is already liked.");
+            } else {
+                favouriteMusicTable.add(musicId);
+            }
+        }
     }
 
-    public void removeLike(String name) throws SQLException {
-        favouriteMusicTable.remove(musicTable.findIdByName(name));
+    public void removeLikeMusic(String name) throws SQLException {
+        int musicId = musicTable.findIdByName(name);
+
+        if (musicId == 0) {
+            System.out.println("This music doesn't exist.");
+        } else {
+            if (favouriteMusicTable.exists(musicId)) {
+                favouriteMusicTable.remove(musicId);
+            } else {
+                System.out.println("This music is already unlike.");
+            }
+        }
     }
 
     public List<Music> findAll() throws SQLException {
         return musicTable.findAll();
     }
 
-    public void printAll() throws SQLException {
-        List<Music> musicList = findAll();
+    public void printLikedMusics() throws SQLException {
+        List<Integer> list = favouriteMusicTable.find();
 
-        if (musicList.isEmpty()) {
-            System.out.println("There is no musics.");
-            return;
+        if (list.isEmpty()) {
+            System.out.println("You don't like any music.");
+        } else {
+            for (Integer integer : list) {
+                System.out.println("Name: " + musicTable.findById(integer).getName());
+            }
         }
+    }
 
-        for (Music music : musicList) {
-            System.out.println("Music id: " + music.getId());
-            System.out.println("Name: " + music.getName());
-            System.out.println("Number of Likes: " + music.getNrLikes() + '\n');
+    public void printAll() throws SQLException {
+        if (USER_ONLINE.isAdm()) {
+            printAllAdm();
+        } else {
+            printAllUser();
         }
     }
 
     public void print(int id) throws SQLException {
+        if (USER_ONLINE.isAdm()) {
+            printAdm(id);
+        } else {
+            printUser(id);
+        }
+    }
+
+    private void printAdm(int id) throws SQLException {
         Music music = findById(id);
 
         if (music == null) {
-            System.out.println("There is no song.");
+            System.out.println("There is no music.");
             return;
         }
 
@@ -150,5 +192,61 @@ public class MusicService {
         System.out.println("Spotify url: " + music.getSpotifyURL());
         System.out.println("Youtube url: " + music.getYoutubeURL());
         System.out.println("Number of likes: " + music.getNrLikes() + '\n');
+    }
+
+    private void printUser(int id) throws SQLException {
+        Music music = findById(id);
+
+        if (music == null) {
+            System.out.println("There is no music.");
+
+            Request request = new Request();
+            request.hasChar("Request", "Do you want to add this music? [Y/N]");
+
+            if (request.ask().get(0).getValue().toString().charAt(0) == 'Y') {
+                new AddMusicAction().execute();
+            }
+
+            return;
+        }
+
+        System.out.println("Name: " + music.getName());
+        System.out.println("Genre: " + genreTable.findById(music.getGenreId()).getName());
+        System.out.println("Year: " + music.getYear());
+        System.out.println("Duration: " + music.getDuration());
+        System.out.println("Country: " + countryTable.findById(music.getCountryId()).getName());
+        System.out.println("Explicit: " + music.isExplicit());
+        System.out.println("Spotify url: " + music.getSpotifyURL());
+        System.out.println("Youtube url: " + music.getYoutubeURL());
+        System.out.println("Number of likes: " + music.getNrLikes() + '\n');
+    }
+
+    private void printAllUser() throws SQLException {
+        List<Music> musicList = findAll();
+
+        if (musicList.isEmpty()) {
+            System.out.println("There is no musics.");
+            return;
+        }
+
+        for (Music music : musicList) {
+            System.out.println("Name: " + music.getName());
+            System.out.println("Number of Likes: " + music.getNrLikes() + '\n');
+        }
+    }
+
+    private void printAllAdm() throws SQLException {
+        List<Music> musicList = findAll();
+
+        if (musicList.isEmpty()) {
+            System.out.println("There is no musics.");
+            return;
+        }
+
+        for (Music music : musicList) {
+            System.out.println("Music id: " + music.getId());
+            System.out.println("Name: " + music.getName());
+            System.out.println("Number of Likes: " + music.getNrLikes() + '\n');
+        }
     }
 }

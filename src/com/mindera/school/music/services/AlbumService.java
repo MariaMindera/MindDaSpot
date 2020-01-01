@@ -1,7 +1,7 @@
 package com.mindera.school.music.services;
 
+import com.mindera.school.music.actions.album.AddAlbumAction;
 import com.mindera.school.music.data.favouriteTables.FavouriteAlbumTable;
-import com.mindera.school.music.data.favouriteTables.FavouriteArtistTable;
 import com.mindera.school.music.data.intermediateTables.*;
 import com.mindera.school.music.data.rows.Music;
 import com.mindera.school.music.data.tables.*;
@@ -27,7 +27,6 @@ public class AlbumService {
     private AlbumArtistTable albumArtistTable;
     private AlbumProducerTable albumProducerTable;
     private FavouriteAlbumTable favouriteAlbumTable;
-    private FavouriteArtistTable favouriteArtistTable;
     private MusicAlbumTable musicAlbumTable;
 
     public AlbumService() {
@@ -40,7 +39,6 @@ public class AlbumService {
         this.albumArtistTable = ALBUM_ARTIST_TABLE;
         this.albumProducerTable = ALBUM_PRODUCER_TABLE;
         this.favouriteAlbumTable = FAVOURITE_ALBUM_TABLE;
-        this.favouriteArtistTable = FAVOURITE_ARTIST_TABLE;
         this.musicAlbumTable = MUSIC_ALBUM_TABLE;
     }
 
@@ -81,19 +79,28 @@ public class AlbumService {
 
     public void addLikeAlbum(String name) throws SQLException {
         int albumId = albumTable.findIdByName(name);
-        if (favouriteAlbumTable.exists(albumId)) {
-            System.out.println("This album is already likes.");
+        if (albumId == 0) {
+            System.out.println("This album doesn't exist.");
         } else {
-            favouriteAlbumTable.add(albumId);
+            if (favouriteAlbumTable.exists(albumId)) {
+                System.out.println("This album is already liked.");
+            } else {
+                favouriteAlbumTable.add(albumId);
+            }
         }
     }
 
     public void removeLikeAlbum(String name) throws SQLException {
         int albumId = albumTable.findIdByName(name);
-        if (favouriteAlbumTable.exists(albumId)) {
-            favouriteAlbumTable.remove(albumId);
+
+        if (albumId == 0) {
+            System.out.println("This album doesn't exist.");
         } else {
-            System.out.println("This album is already unlike.");
+            if (favouriteAlbumTable.exists(albumId)) {
+                favouriteAlbumTable.remove(albumId);
+            } else {
+                System.out.println("This album is already unlike.");
+            }
         }
     }
 
@@ -102,7 +109,12 @@ public class AlbumService {
     }
 
     public void removeByName(String name) throws SQLException {
-        albumTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0){
+            System.out.println("This album doesn't exists.");
+        } else {
+            albumTable.removeById(id);
+        }
     }
 
     public Album find(int id) throws SQLException {
@@ -140,13 +152,22 @@ public class AlbumService {
         }
     }
 
-    public int findByName(String name) throws SQLException {
+    public int findIdByName(String name) throws SQLException {
         return albumTable.findIdByName(name);
     }
 
     public void addMusicToAlbum(String nameMusic, String nameAlbum) throws SQLException {
         int musicId = musicTable.findIdByName(nameMusic);
-        int albumId = findByName(nameAlbum);
+        int albumId = findIdByName(nameAlbum);
+
+        if (albumId == 0) {
+            System.out.println("This album doesn't exits.");
+            return;
+        }
+        if (musicId == 0) {
+            System.out.println("This music doesn't exits.");
+            return;
+        }
 
         if (musicAlbumTable.exists(musicId, albumId)) {
             System.out.println("This music already exits in this album.");
@@ -189,6 +210,14 @@ public class AlbumService {
 
         if (album == null) {
             System.out.println("There is no album.");
+
+            Request request = new Request();
+            request.hasChar("Request", "Do you want to add this album? [Y/N]");
+
+            if (request.ask().get(0).getValue().toString().charAt(0) == 'Y') {
+                new AddAlbumAction().execute();
+            }
+
             return;
         }
 
@@ -215,6 +244,14 @@ public class AlbumService {
 
         if (album == null) {
             System.out.println("There is no album.");
+
+            Request request = new Request();
+            request.hasChar("Request", "Do you want to add this album? [Y/N]");
+
+            if (request.ask().get(0).getValue().toString().charAt(0) == 'Y') {
+                new AddAlbumAction().execute();
+            }
+
             return;
         }
 

@@ -71,7 +71,16 @@ public class UserService {
     }
 
     public void removeByName(String name) throws SQLException {
-        userTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0){
+            System.out.println("This user doesn't exists.");
+        } else {
+            userTable.removeById(id);
+        }
+    }
+
+    public int findIdByName(String name) throws SQLException {
+        return userTable.findIdByName(name);
     }
 
     public User find(int id) throws SQLException {

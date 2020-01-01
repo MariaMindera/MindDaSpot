@@ -1,8 +1,10 @@
 package com.mindera.school.music.data.tables;
 
 import com.mindera.school.music.data.Table;
+import com.mindera.school.music.data.intermediateTables.MusicAlbumTable;
 import com.mindera.school.music.data.rows.Music;
 
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.MUSIC_ALBUM_TABLE;
 import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 import java.sql.ResultSet;
@@ -11,14 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MusicTable extends Table {
+    private MusicAlbumTable musicAlbumTable;
+
     public MusicTable(String table) {
         super(table);
+        this.musicAlbumTable = MUSIC_ALBUM_TABLE;
     }
 
     public void add(Music music) throws SQLException {
         sql.statement.executeUpdate("Call add_music('" + music.getName() + "', '" + music.getDuration() + "', '"
                 + music.getYear() + "', " + music.isExplicit() + ", '" + music.getSpotifyURL() + "', '"
                 + music.getYoutubeURL() + "', " + music.getCountryId() + ", " + music.getGenreId() + ");");
+        musicAlbumTable.add(findIdByName(music.getName()), music.getAlbum_id());
     }
 
     public Music findById(int id) throws SQLException {

@@ -37,7 +37,16 @@ public class ProducerService {
     }
 
     public void removeByName(String name) throws SQLException {
-        producerTable.removeByName(name);
+        int id = findIdByName(name);
+        if (id == 0){
+            System.out.println("This producer doesn't exists.");
+        } else {
+            producerTable.removeById(id);
+        }
+    }
+
+    public int findIdByName(String name) throws SQLException {
+        return producerTable.findIdByName(name);
     }
 
     public Producer find(int id) throws SQLException {
