@@ -19,6 +19,6 @@ public class UnfollowArtistAction implements Action {
     public void execute() throws SQLException {
         Request request = new Request();
         request.hasString("Name", "Insert the name of the artist: ");
-        artistService.removeFollower((String) request.ask().get(0).getValue());
+        artistService.removeFollower(request.ask().get(0).getValue().toString());
     }
 }

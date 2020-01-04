@@ -1,16 +1,17 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.User;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.UserTable;
 import com.mindera.school.music.ui.KeyValue;
+import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.ui.Request;
-
-import static com.mindera.school.music.data.tables.Tables.*;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.mindera.school.music.data.tables.Tables.COUNTRY_TABLE;
+import static com.mindera.school.music.data.tables.Tables.USER_TABLE;
 
 public class UserService {
     private UserTable userTable;
@@ -66,13 +67,9 @@ public class UserService {
         userTable.add(user);
     }
 
-    public void removeById(int id) throws SQLException {
-        userTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
-        if (id == 0){
+        if (id == 0) {
             System.out.println("This user doesn't exists.");
         } else {
             userTable.removeById(id);

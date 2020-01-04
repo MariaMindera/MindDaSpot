@@ -18,6 +18,8 @@ public class MusicMenuUserAction implements Action {
         menu.add(new Option("Print a music", new PrintMusicAction()));
         menu.add(new Option("Print all musics", new PrintAllMusicsAction()));
         menu.add(new Option("Print all liked musics", new PrintAllLikedMusicsAction()));
+        menu.add(new Option("Print all musics by genre", new PrintAllMusicsGenreAction()));
+        menu.add(new Option("Print all musics by country", new PrintAllMusicsCountryAction()));
         menu.add(new Option("Like music", new LikeMusicAction()));
         menu.add(new Option("Unlike music", new UnlikeMusicAction()));
         menu.add(new Option("Exit", new ExitOption()));

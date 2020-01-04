@@ -7,12 +7,13 @@ import com.mindera.school.music.data.tables.MusicTable;
 import com.mindera.school.music.data.tables.PlaylistTable;
 import com.mindera.school.music.ui.KeyValue;
 
-import static com.mindera.school.music.data.tables.Tables.*;
-import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
-import static com.mindera.school.music.services.Services.USER_ONLINE;
-
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.MUSIC_PLAYLIST_TABLE;
+import static com.mindera.school.music.data.tables.Tables.MUSIC_TABLE;
+import static com.mindera.school.music.data.tables.Tables.PLAYLIST_TABLE;
+import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 public class PlaylistService {
     private PlaylistTable playlistTable;
@@ -61,13 +62,9 @@ public class PlaylistService {
         }
     }
 
-    public void removeById(int id) throws SQLException {
-        playlistTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
-        if (id == 0){
+        if (id == 0) {
             System.out.println("This playlist doesn't exists.");
         } else {
             playlistTable.removeById(id);
@@ -155,7 +152,7 @@ public class PlaylistService {
 
         List<Integer> musicList = musicPlaylistTable.find(id);
 
-        if(musicList.isEmpty()) {
+        if (musicList.isEmpty()) {
             System.out.println("There is no musics in this playlists.");
         }
 

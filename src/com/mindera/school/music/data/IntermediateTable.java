@@ -24,10 +24,6 @@ public class IntermediateTable {
         sql.statement.executeQuery("Call add_" + table1 + "_" + table2 + "(" + id1 + ", " + id2 + ");");
     }
 
-    public void remove(int id1, int id2) throws SQLException {
-        sql.statement.executeQuery("Call remove_" + table1 + "_" + table2 + "(" + id1 + ", " + id2 + ");");
-    }
-
     public List<Integer> find(int id) throws SQLException {
         ResultSet resultSet = sql.statement.executeQuery("Call get_" + table1 + "_" + table2 + "(" + id + ");");
         List<Integer> list = new ArrayList<>();

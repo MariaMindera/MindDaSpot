@@ -7,18 +7,16 @@ public class Artist {
     private String name;
     private int countryId;
     private String description;
-    private int nrSearch = 0;
     private int nrFollowers = 0;
 
     public Artist() {
     }
 
-    public Artist(int id, String name, int countryId, String description, int nrSearch, int nrFollowers) {
+    public Artist(int id, String name, int countryId, String description, int nrFollowers) {
         this.id = id;
         this.name = StringCode.capitalizeEachWord(name);
         this.countryId = countryId;
         this.description = description;
-        this.nrSearch = nrSearch;
         this.nrFollowers = nrFollowers;
     }
 
@@ -51,22 +49,10 @@ public class Artist {
     }
 
     public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getNrSearch() {
-        return nrSearch;
-    }
-
-    public void setNrSearch() {
-        this.nrSearch++;
+        this.description = StringCode.capitalizeFirstWordOfSentences(description);
     }
 
     public int getNrFollowers() {
         return nrFollowers;
-    }
-
-    public void setNrFollowers() {
-        this.nrFollowers++;
     }
 }

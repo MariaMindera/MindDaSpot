@@ -24,8 +24,7 @@ public class ArtistTable extends Table {
 
         if (resultSet.next()) {
             return new Artist(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getInt(3), resultSet.getString(4), resultSet.getInt(5),
-                    resultSet.getInt(6));
+                    resultSet.getInt(3), resultSet.getString(4), resultSet.getInt(6));
         }
 
         return null;
@@ -38,8 +37,7 @@ public class ArtistTable extends Table {
 
         while (resultSet.next()) {
             list.add(new Artist(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getInt(3), resultSet.getString(4), resultSet.getInt(5),
-                    resultSet.getInt(6)));
+                    resultSet.getInt(3), resultSet.getString(4), resultSet.getInt(6)));
         }
 
         return list;

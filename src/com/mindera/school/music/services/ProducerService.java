@@ -7,7 +7,7 @@ import com.mindera.school.music.ui.KeyValue;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.mindera.school.music.data.tables.Tables.*;
+import static com.mindera.school.music.data.tables.Tables.PRODUCER_TABLE;
 
 public class ProducerService {
     private ProducerTable producerTable;
@@ -32,13 +32,9 @@ public class ProducerService {
         producerTable.add(producer);
     }
 
-    public void removeById(int id) throws SQLException {
-        producerTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
-        if (id == 0){
+        if (id == 0) {
             System.out.println("This producer doesn't exists.");
         } else {
             producerTable.removeById(id);

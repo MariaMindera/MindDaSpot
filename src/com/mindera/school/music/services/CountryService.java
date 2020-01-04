@@ -7,7 +7,7 @@ import com.mindera.school.music.ui.KeyValue;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.mindera.school.music.data.tables.Tables.*;
+import static com.mindera.school.music.data.tables.Tables.COUNTRY_TABLE;
 
 public class CountryService {
     private CountryTable countryTable;
@@ -32,13 +32,9 @@ public class CountryService {
         countryTable.add(country);
     }
 
-    public void removeById(int id) throws SQLException {
-        countryTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
-        if (id == 0){
+        if (id == 0) {
             System.out.println("This country doesn't exists.");
         } else {
             countryTable.removeById(id);

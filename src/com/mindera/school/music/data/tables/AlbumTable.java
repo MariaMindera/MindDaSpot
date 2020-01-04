@@ -5,12 +5,13 @@ import com.mindera.school.music.data.intermediateTables.AlbumArtistTable;
 import com.mindera.school.music.data.intermediateTables.AlbumProducerTable;
 import com.mindera.school.music.data.rows.Album;
 
-import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.ALBUM_ARTIST_TABLE;
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.ALBUM_PRODUCER_TABLE;
 
 public class AlbumTable extends Table {
     private AlbumArtistTable albumArtistTable;

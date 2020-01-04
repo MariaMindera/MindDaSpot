@@ -2,19 +2,20 @@ package com.mindera.school.music.services;
 
 import com.mindera.school.music.data.favouriteTables.FavouriteArtistTable;
 import com.mindera.school.music.data.rows.Album;
-import com.mindera.school.music.data.rows.Music;
-import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Artist;
+import com.mindera.school.music.data.rows.Music;
 import com.mindera.school.music.data.tables.ArtistTable;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.ui.KeyValue;
-
-import static com.mindera.school.music.data.tables.Tables.*;
-import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
-import static com.mindera.school.music.services.Services.USER_ONLINE;
+import com.mindera.school.music.ui.Mapper;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.FAVOURITE_ARTIST_TABLE;
+import static com.mindera.school.music.data.tables.Tables.ARTIST_TABLE;
+import static com.mindera.school.music.data.tables.Tables.COUNTRY_TABLE;
+import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 public class ArtistService {
     private ArtistTable artistTable;
@@ -54,10 +55,6 @@ public class ArtistService {
         artistTable.add(artist);
     }
 
-    public void removeById(int id) throws SQLException {
-        artistTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
         if (id == 0) {
@@ -76,7 +73,18 @@ public class ArtistService {
     }
 
     public void printAllAlbums(String name) throws SQLException {
-        List<Album> list = artistTable.findAllAlbums(findIdByName(name));
+        int id = findIdByName(name);
+
+        if (id == 0) {
+            System.out.println("This artist doesn't exist.");
+            return;
+        }
+
+        List<Album> list = artistTable.findAllAlbums(id);
+
+        if (list.isEmpty()) {
+            System.out.println("There are no albums from this artist.");
+        }
 
         for (Album album : list) {
             System.out.println("Name: " + album.getName());
@@ -84,7 +92,18 @@ public class ArtistService {
     }
 
     public void printAllMusics(String name) throws SQLException {
-        List<Music> list = artistTable.findAllMusics(findIdByName(name));
+        int id = findIdByName(name);
+
+        if (id == 0) {
+            System.out.println("This artist doesn't exist.");
+            return;
+        }
+
+        List<Music> list = artistTable.findAllMusics(id);
+
+        if (list.isEmpty()) {
+            System.out.println("There are no musics from this artist.");
+        }
 
         for (Music music : list) {
             if (USER_ONLINE.isLegalAge()) {

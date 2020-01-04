@@ -2,20 +2,22 @@ package com.mindera.school.music.services;
 
 import com.mindera.school.music.actions.album.AddAlbumAction;
 import com.mindera.school.music.data.favouriteTables.FavouriteAlbumTable;
-import com.mindera.school.music.data.intermediateTables.*;
+import com.mindera.school.music.data.intermediateTables.AlbumArtistTable;
+import com.mindera.school.music.data.intermediateTables.AlbumProducerTable;
+import com.mindera.school.music.data.intermediateTables.MusicAlbumTable;
+import com.mindera.school.music.data.rows.Album;
 import com.mindera.school.music.data.rows.Music;
 import com.mindera.school.music.data.tables.*;
-import com.mindera.school.music.ui.Mapper;
-import com.mindera.school.music.data.rows.Album;
 import com.mindera.school.music.ui.KeyValue;
+import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.ui.Request;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.mindera.school.music.services.Services.USER_ONLINE;
-import static com.mindera.school.music.data.tables.Tables.*;
 import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
+import static com.mindera.school.music.data.tables.Tables.*;
+import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 public class AlbumService {
     private Mapper mapper;
@@ -55,7 +57,7 @@ public class AlbumService {
             }
             if (keyValue.getName().equals("Year")) {
                 int year = (Integer) keyValue.getValue();
-                while (year < 0 || year > 2020) {
+                while (year < 1900 || year > 2020) {
                     Request request = new Request();
                     request.hasInt("Year", "Invalid year. Insert again: ");
                     List<KeyValue> list = request.ask();
@@ -104,13 +106,9 @@ public class AlbumService {
         }
     }
 
-    public void removeById(int id) throws SQLException {
-        albumTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
-        if (id == 0){
+        if (id == 0) {
             System.out.println("This album doesn't exists.");
         } else {
             albumTable.removeById(id);

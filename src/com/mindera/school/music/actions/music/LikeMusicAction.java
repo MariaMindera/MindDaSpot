@@ -4,9 +4,9 @@ import com.mindera.school.music.services.MusicService;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Request;
 
-import static com.mindera.school.music.services.Services.MUSIC_SERVICE;
-
 import java.sql.SQLException;
+
+import static com.mindera.school.music.services.Services.MUSIC_SERVICE;
 
 public class LikeMusicAction implements Action {
     private MusicService musicService;

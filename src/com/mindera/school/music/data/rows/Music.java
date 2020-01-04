@@ -97,14 +97,6 @@ public class Music {
         this.youtubeURL = youtubeURL;
     }
 
-    public int getNrSearch() {
-        return nrSearch;
-    }
-
-    public void setNrSearch() {
-        this.nrSearch++;
-    }
-
     public int getCountryId() {
         return countryId;
     }
@@ -123,9 +115,5 @@ public class Music {
 
     public int getNrLikes() {
         return nrLikes;
-    }
-
-    public void setNrLikes() {
-        this.nrLikes++;
     }
 }

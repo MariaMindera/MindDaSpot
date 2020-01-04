@@ -5,7 +5,7 @@ import com.mindera.school.music.ui.Action;
 
 import java.sql.SQLException;
 
-import static com.mindera.school.music.services.Services.*;
+import static com.mindera.school.music.services.Services.ARTIST_SERVICE;
 
 public class PrintAllArtistsAction implements Action {
     private ArtistService artistService;

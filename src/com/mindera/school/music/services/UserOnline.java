@@ -1,6 +1,4 @@
-package com.mindera.school.music;
-
-import com.mindera.school.music.ui.SQLConnection;
+package com.mindera.school.music.services;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +19,7 @@ public class UserOnline {
 
     private void setLegalAge() throws SQLException {
         ResultSet resultSet = SQL_CONNECTION.statement.executeQuery("SELECT age_by_user_id(" + userID + ");");
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             legalAge = resultSet.getInt(1) > 17;
         }
     }

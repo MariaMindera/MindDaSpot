@@ -19,6 +19,6 @@ public class UnlikeMusicAction implements Action {
     public void execute() throws SQLException {
         Request request = new Request();
         request.hasString("Name", "What is the name of the music?");
-        musicService.removeLikeMusic((String) request.ask().get(0).getValue());
+        musicService.removeLikeMusic(request.ask().get(0).getValue().toString());
     }
 }

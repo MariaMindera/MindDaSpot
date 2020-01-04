@@ -3,10 +3,10 @@ package com.mindera.school.music.data;
 import com.mindera.school.music.ui.SQLConnection;
 import com.mindera.school.music.ui.StringCode;
 
-import static com.mindera.school.music.services.Services.SQL_CONNECTION;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static com.mindera.school.music.services.Services.SQL_CONNECTION;
 
 public class Table {
     protected String table;
