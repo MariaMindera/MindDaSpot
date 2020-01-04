@@ -6,7 +6,7 @@ import com.mindera.school.music.ui.Request;
 
 import java.sql.SQLException;
 
-import static com.mindera.school.music.services.Services.*;
+import static com.mindera.school.music.services.Services.ARTIST_SERVICE;
 
 public class PrintMusicArtistAction implements Action {
     private ArtistService artistService;
@@ -19,6 +19,6 @@ public class PrintMusicArtistAction implements Action {
     public void execute() throws SQLException {
         Request request = new Request();
         request.hasString("Name", "Insert the name of the artist: ");
-        artistService.printAllMusics((String) request.ask().get(0).getValue());
+        artistService.printAllMusics(request.ask().get(0).getValue().toString());
     }
 }

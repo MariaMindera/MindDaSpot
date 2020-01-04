@@ -8,7 +8,7 @@ import com.mindera.school.music.ui.Request;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.mindera.school.music.services.Services.*;
+import static com.mindera.school.music.services.Services.ALBUM_SERVICE;
 
 public class AddMusicAlbumAction implements Action {
     private AlbumService albumService;

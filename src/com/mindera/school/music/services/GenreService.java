@@ -1,22 +1,19 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Genre;
 import com.mindera.school.music.data.tables.GenreTable;
 import com.mindera.school.music.ui.KeyValue;
 
-import static com.mindera.school.music.data.tables.Tables.*;
-
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.mindera.school.music.data.tables.Tables.GENRE_TABLE;
+
 public class GenreService {
     private GenreTable genreTable;
-    private Mapper mapper;
 
     public GenreService() {
         this.genreTable = GENRE_TABLE;
-        this.mapper = new Mapper();
     }
 
     public void add(List<KeyValue> keyValueList) throws SQLException {
@@ -35,13 +32,9 @@ public class GenreService {
         genreTable.add(genre);
     }
 
-    public void removeById(int id) throws SQLException {
-        genreTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
-        if (id == 0){
+        if (id == 0) {
             System.out.println("This genre doesn't exists.");
         } else {
             genreTable.removeById(id);

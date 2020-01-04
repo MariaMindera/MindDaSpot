@@ -1,7 +1,7 @@
 package com.mindera.school.music.actions.others;
 
-import com.mindera.school.music.actions.artist.ArtistMenuUserAction;
 import com.mindera.school.music.actions.album.AlbumMenuUserAction;
+import com.mindera.school.music.actions.artist.ArtistMenuUserAction;
 import com.mindera.school.music.actions.music.MusicMenuUserAction;
 import com.mindera.school.music.actions.playlist.PlaylistMenuUserAction;
 import com.mindera.school.music.ui.Action;

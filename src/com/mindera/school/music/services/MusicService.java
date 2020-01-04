@@ -2,20 +2,20 @@ package com.mindera.school.music.services;
 
 import com.mindera.school.music.actions.music.AddMusicAction;
 import com.mindera.school.music.data.favouriteTables.FavouriteMusicTable;
-import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Music;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.GenreTable;
 import com.mindera.school.music.data.tables.MusicTable;
 import com.mindera.school.music.ui.KeyValue;
+import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.ui.Request;
-
-import static com.mindera.school.music.data.tables.Tables.*;
-import static com.mindera.school.music.data.intermediateTables.IntermediateTables.*;
-import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.mindera.school.music.data.intermediateTables.IntermediateTables.FAVOURITE_MUSIC_TABLE;
+import static com.mindera.school.music.data.tables.Tables.*;
+import static com.mindera.school.music.services.Services.USER_ONLINE;
 
 public class MusicService {
     private MusicTable musicTable;
@@ -94,10 +94,6 @@ public class MusicService {
         musicTable.add(music);
     }
 
-    public void removeById(int id) throws SQLException {
-        musicTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
         if (id == 0) {
@@ -144,6 +140,46 @@ public class MusicService {
 
     public List<Music> findAll() throws SQLException {
         return musicTable.findAll();
+    }
+
+    public void printMusicsByGenre(String name) throws SQLException {
+        int id = genreTable.findIdByName(name);
+
+        if (id == 0) {
+            System.out.println("This genre doesn't exits.");
+            return;
+        }
+
+        List<Music> list = musicTable.findAllByGenre(id);
+
+        if (list.isEmpty()) {
+            System.out.println("There are no musics with this genre.");
+        } else {
+            for (Music music : list) {
+                System.out.println("Name: " + music.getName());
+                System.out.println("Number of likes: " + music.getNrLikes() + '\n');
+            }
+        }
+    }
+
+    public void printMusicsByCountry(String name) throws SQLException {
+        int id = countryTable.findIdByName(name);
+
+        if (id == 0) {
+            System.out.println("This country doesn't exits.");
+            return;
+        }
+
+        List<Music> list = musicTable.findAllByCountry(id);
+
+        if (list.isEmpty()) {
+            System.out.println("There are no musics from this country.");
+        } else {
+            for (Music music : list) {
+                System.out.println("Name: " + music.getName());
+                System.out.println("Number of likes: " + music.getNrLikes() + '\n');
+            }
+        }
     }
 
     public void printLikedMusics() throws SQLException {

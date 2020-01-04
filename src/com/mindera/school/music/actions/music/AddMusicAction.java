@@ -6,7 +6,7 @@ import com.mindera.school.music.ui.Request;
 
 import java.sql.SQLException;
 
-import static com.mindera.school.music.services.Services.*;
+import static com.mindera.school.music.services.Services.MUSIC_SERVICE;
 
 public class AddMusicAction implements Action {
     private MusicService musicService;

@@ -1,15 +1,16 @@
 package com.mindera.school.music.services;
 
-import com.mindera.school.music.ui.Mapper;
 import com.mindera.school.music.data.rows.Studio;
 import com.mindera.school.music.data.tables.CountryTable;
 import com.mindera.school.music.data.tables.StudioTable;
 import com.mindera.school.music.ui.KeyValue;
-
-import static com.mindera.school.music.data.tables.Tables.*;
+import com.mindera.school.music.ui.Mapper;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.mindera.school.music.data.tables.Tables.COUNTRY_TABLE;
+import static com.mindera.school.music.data.tables.Tables.STUDIO_TABLE;
 
 public class StudioService {
     private StudioTable studioTable;
@@ -44,13 +45,9 @@ public class StudioService {
         studioTable.add(studio);
     }
 
-    public void removeById(int id) throws SQLException {
-        studioTable.removeById(id);
-    }
-
     public void removeByName(String name) throws SQLException {
         int id = findIdByName(name);
-        if (id == 0){
+        if (id == 0) {
             System.out.println("This studio doesn't exists.");
         } else {
             studioTable.removeById(id);

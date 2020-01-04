@@ -2,7 +2,6 @@ package com.mindera.school.music.ui;
 
 import com.mindera.school.music.actions.album.AddAlbumAction;
 import com.mindera.school.music.actions.artist.AddArtistAction;
-import com.mindera.school.music.actions.producer.AddProducerAction;
 import com.mindera.school.music.actions.studio.AddStudioAction;
 import com.mindera.school.music.data.rows.Country;
 import com.mindera.school.music.data.rows.Genre;
@@ -55,7 +54,9 @@ public class Mapper {
         int id = studioTable.findIdByName(name);
         if (id == 0) {
             System.out.println('\n' + "It is a new studio. Please insert the date." + '\n');
-            new AddStudioAction().execute();
+            AddStudioAction addStudioAction = new AddStudioAction();
+            addStudioAction.execute();
+            name = StringCode.capitalizeEachWord(addStudioAction.getName());
             id = studioTable.findIdByName(name);
         }
         return id;
@@ -76,7 +77,9 @@ public class Mapper {
         int id = artistTable.findIdByName(name);
         if (id == 0) {
             System.out.println('\n' + "It is a new artist. Please insert the date." + '\n');
-            new AddArtistAction().execute();
+            AddArtistAction addArtistAction = new AddArtistAction();
+            addArtistAction.execute();
+            name = StringCode.capitalizeEachWord(addArtistAction.getName());
             id = artistTable.findIdByName(name);
         }
         return id;
@@ -87,7 +90,9 @@ public class Mapper {
         int id = albumTable.findIdByName(name);
         if (id == 0) {
             System.out.println('\n' + "It is a new album. Please insert the date." + '\n');
-            new AddAlbumAction().execute();
+            AddAlbumAction addAlbumAction = new AddAlbumAction();
+            addAlbumAction.execute();
+            name = StringCode.capitalizeEachWord(addAlbumAction.getName());
             id = albumTable.findIdByName(name);
         }
         return id;

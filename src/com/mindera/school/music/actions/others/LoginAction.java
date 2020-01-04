@@ -6,7 +6,8 @@ import com.mindera.school.music.ui.Request;
 
 import java.sql.SQLException;
 
-import static com.mindera.school.music.services.Services.*;
+import static com.mindera.school.music.services.Services.USER_ONLINE;
+import static com.mindera.school.music.services.Services.USER_SERVICE;
 
 public class LoginAction implements Action {
     private UserService userService;
@@ -23,7 +24,7 @@ public class LoginAction implements Action {
         userService.userOnline(request.ask());
 
         if (USER_ONLINE.isAdm()) {
-            //TODO
+            new MenuAdmAction().execute();
         } else {
             new MenuUserAction().execute();
         }

@@ -1,25 +1,24 @@
-package com.mindera.school.music.actions.others;
+package com.mindera.school.music.actions.user;
 
 import com.mindera.school.music.services.UserService;
 import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Request;
 
-import static com.mindera.school.music.services.Services.USER_SERVICE;
-
 import java.sql.SQLException;
 
-public class AdministratorAction implements Action {
+import static com.mindera.school.music.services.Services.USER_SERVICE;
+
+public class DeleteUserAction implements Action {
     private UserService userService;
 
-    public AdministratorAction() {
+    public DeleteUserAction() {
         this.userService = USER_SERVICE;
     }
 
     @Override
     public void execute() throws SQLException {
         Request request = new Request();
-        request.hasString("Email", "Email:");
-        request.hasString("Password", "Password:");
-        userService.userOnline(request.ask());
+        request.hasString("Name", "Insert the name of the user: ");
+        userService.removeByName(request.ask().get(0).getValue().toString());
     }
 }

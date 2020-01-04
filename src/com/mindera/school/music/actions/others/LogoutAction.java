@@ -1,6 +1,6 @@
 package com.mindera.school.music.actions.others;
 
-import com.mindera.school.music.UserOnline;
+import com.mindera.school.music.services.UserOnline;
 import com.mindera.school.music.ui.Action;
 
 import java.sql.SQLException;

@@ -6,7 +6,6 @@ import com.mindera.school.music.ui.Action;
 import com.mindera.school.music.ui.Menu;
 import com.mindera.school.music.ui.Option;
 
-
 import java.sql.SQLException;
 
 public class AlbumMenuUserAction implements Action {
